@@ -1,1 +1,21 @@
 <app-admin-nav></app-admin-nav>
+<div id="adminOrderBody" class="container mt-5 pt-5">
+    <div class="table-responsive r-scroll">
+        <table class="table">
+            <thead class="bg-primary text-light">
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Medicine Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+            </thead>
+            <tr *ngFor="let order of orders">
+                <td>{{order.orderId}}</td>
+                <td>{{order.userid}}</td>
+                <td>{{order.ProductName}}</td>
+                <td>{{order.Price}}</td>
+                <td>{{order.quantity}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
