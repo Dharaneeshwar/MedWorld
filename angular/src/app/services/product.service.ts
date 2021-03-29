@@ -14,4 +14,8 @@ export class ProductService {
   getProducts(): Observable<Product[]>{
     return this.httpClient.get<Product[]>(`${this.baseUrl}/admin`);
   }
+
+  addProduct(product:Product):Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/admin/addProduct`,product);
+  } 
 }

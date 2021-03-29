@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
         "description":"abcd",
         "price":"20",
         "productName":"Paracetamol",
-        "quanity":"2"
+        "quantity":"2"
       },
       {
         "productId": "2",
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
         "description":"abcd",
         "price":"20",
         "productName":"Paracetamol",
-        "quanity":"5"
+        "quantity":"5"
       }
     ];
   }
@@ -37,7 +37,8 @@ export class DashboardComponent implements OnInit {
   private getProducts(){
     this.productService.getProducts().subscribe(data => {
       this.products = data;
-    });
+    },error => console.log(error)
+    );  
   }
 
 }
