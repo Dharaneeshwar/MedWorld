@@ -18,4 +18,10 @@ export class ProductService {
   addProduct(product:Product):Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}/admin/addProduct`,product);
   } 
+  getProductById(id:string):Observable<Product>{
+    return this.httpClient.get<Product>(`${this.baseUrl}/admin/productEdit/${id}`);
+  }
+  saveProductById(id:string,product:Product):Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/admin/productEdit/${id}`,product)
+  }
 }

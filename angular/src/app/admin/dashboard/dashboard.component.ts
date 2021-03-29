@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/model/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -10,7 +11,7 @@ import { ProductService } from 'src/app/services/product.service';
 export class DashboardComponent implements OnInit {
 
   products:Product[] = [];
-  constructor(private productService:ProductService) { }
+  constructor(private productService:ProductService,private router:Router) { }
  
   ngOnInit(): void {
     this.getProducts();
@@ -39,6 +40,10 @@ export class DashboardComponent implements OnInit {
       this.products = data;
     },error => console.log(error)
     );  
+  }
+
+  editProduct(id:string){
+    this.router.navigateByUrl('admin/edit/'+id);
   }
 
 }

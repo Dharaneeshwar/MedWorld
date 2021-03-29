@@ -1,0 +1,39 @@
+<app-admin-nav></app-admin-nav>
+<div class="container mt-5">
+    <div class="row mt-3">
+        <div class="d-none d-md-block col-0 col-md-6 order-lg-1">
+            <div class="p-5 sticky a-center">
+                <h2 style="font-family: 'Patua One', cursive;">Edit Medicine</h2>    
+                <img class="img-fluid mt-5" src="../../../assets/newProduct.svg" alt="">
+            </div>
+        </div>
+        <div class="col-12 col-md-6 order-lg-2">
+            <div id="addMedBody" class="pt-5">
+                <form (ngSubmit)="onsubmit()">
+                    <div class="form-group">
+                        <label for="medName">Medicine Name</label>
+                        <input type="text" class="form-control" [(ngModel)]="product.productName" id="medName" name="name" placeholder="Eg. Paracetamol">
+                    </div>
+                    <div class="form-group">
+                        <label for="medPrice">Medicine Price (in ₹)</label>
+                        <input type="text" class="form-control" [(ngModel)]="product.price" id="medPrice" name="price" placeholder="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="medDescription">Medicine Description</label>
+                        <textarea class="form-control" [(ngModel)]="product.description" id="medDescription" name="description" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="medImageURL">Image URL</label>
+                        <input type="text" class="form-control" [(ngModel)]="product.imageUrl" id="medImageURL" name="imgurl" placeholder="someurl.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="medQuantity">Medicine Quantity</label>
+                        <input type="text" class="form-control" [(ngModel)]="product.quantity" id="medQuantity" name="quantity" placeholder="">
+                    </div>
+
+                    <button id="editMedButton" class="btn btn-primary" type="submit">Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
