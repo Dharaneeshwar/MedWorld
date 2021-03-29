@@ -22,6 +22,9 @@ export class ProductService {
     return this.httpClient.get<Product>(`${this.baseUrl}/admin/productEdit/${id}`);
   }
   saveProductById(id:string,product:Product):Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/admin/productEdit/${id}`,product)
+    return this.httpClient.post(`${this.baseUrl}/admin/productEdit/${id}`,product);
+  }
+  deleteProductById(id:string):Observable<Object>{
+    return this.httpClient.get(`${this.baseUrl}/admin/delete/${id}`);
   }
 }
