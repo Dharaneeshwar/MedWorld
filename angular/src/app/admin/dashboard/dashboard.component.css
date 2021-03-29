@@ -1,0 +1,12 @@
+.tiny-btn {
+    border-radius: 5px;
+    padding: 6px;
+}
+.sticky {
+        position: fixed;
+        width: 40%;
+}
+
+.a-center {
+    margin-top: 5vh;
+}

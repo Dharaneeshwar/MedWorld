@@ -1,9 +1,13 @@
 $theme-colors: (
   "info": #0A79DF,
-  "primary":#fc5c9c ,
+  "primary":#eb346b ,
   "success":#2ecc72,
   "black" : #111,
   "secondary":#4e15d4,
 );
+
+.navlink .active{
+  color: white;
+}
 
 @import "../node_modules/bootstrap/scss/bootstrap";

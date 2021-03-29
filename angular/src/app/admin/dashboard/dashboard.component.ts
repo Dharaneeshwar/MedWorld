@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/model/product';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
-
+  products:Product[] = [];
+  constructor(private productService:ProductService) { }
+ 
   ngOnInit(): void {
+    this.getProducts();
+    this.products = [
+      {
+        "productId": "1",
+        "imageUrl": "https://raisingchildren.net.au/__data/assets/image/0024/49344/medicines-that-can-poison.jpg",
+        "description":"abcd",
+        "price":"20",
+        "productName":"Paracetamol",
+        "quanity":"2"
+      },
+      {
+        "productId": "2",
+        "imageUrl": "https://raisingchildren.net.au/__data/assets/image/0024/49344/medicines-that-can-poison.jpg",
+        "description":"abcd",
+        "price":"20",
+        "productName":"Paracetamol",
+        "quanity":"5"
+      }
+    ];
+  }
+
+  private getProducts(){
+    this.productService.getProducts().subscribe(data => {
+      this.products = data;
+    });
   }
 
 }
