@@ -14,26 +14,6 @@ export class OrderlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
-   /* this.orders = ([
-      {
-        "orderId":"1",
-        "userid":"daranip",
-        "ProductName":"Tablet",
-        "quantity":5,
-        "totalPrice":"200",
-        "Status":"Bought",
-        "Price":"2000"
-      },
-      {
-        "orderId":"2",
-        "userid":"daranip2",
-        "ProductName":"Tablet2",
-        "quantity":5,
-        "totalPrice":"200",
-        "Status":"Bought",
-        "Price":"2000"
-      }
-    ]);*/
   }
 
   private getOrders(){

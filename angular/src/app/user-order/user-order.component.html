@@ -1,5 +1,7 @@
 <app-user-nav></app-user-nav>
-<div class="col-md-12 pt-5 mt-5">
+<div class="container">
+  <h2 class="mt-5 pt-5"  style="font-family: 'Patua One', cursive;">My Orders</h2>    
+  <div class="col-md-11 mt-4">
   <table class="table">
     <thead>
       <tr class="my-head" style="background-color:rgb(243, 46, 105);">
@@ -9,7 +11,7 @@
         <th style="text-align:center">TotalPrice</th>
       </tr>
     </thead>
-    <tbody align="center">
+    <tbody class="text-center">
       <tr *ngFor="let o of orders" class="my-row">
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.name}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.price}}</td>
@@ -18,4 +20,5 @@
       </tr>
     </tbody>
   </table>
+</div>
 </div>

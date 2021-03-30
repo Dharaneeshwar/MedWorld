@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { UserOrder } from '../model/UserOrder';
+import { UserOrderService } from '../services/user-order.service';
 
 @Component({
   selector: 'app-user-order',
@@ -9,27 +10,19 @@ import { UserOrder } from '../model/UserOrder';
 })
 export class UserOrderComponent implements OnInit {
   
-  orders !: Array<UserOrder>;
+  orders : Array<UserOrder> = new Array<UserOrder>();
   
-  constructor() { }
+  constructor(private userOrderService:UserOrderService) { }
 
-  ngOnInit(): void {
-    this.orders=new Array<UserOrder>();
-
-    const order1 = new UserOrder(); 
-    order1.name="paracetamol"; 
-    order1.quantity=1; 
-    order1.price=2500;
-    this.orders.push(order1);
-
-    const order2 = new UserOrder(); 
-    order2.name="covaxin"; 
-    order2.quantity=7; 
-    order2.price=277;
-    this.orders.push(order2);
-    
-   
-    
+  ngOnInit(): void { 
+    this.getOrders();
+  }
+  private getOrders(){
+    this.userOrderService.getOrders().subscribe(data=>{
+      this.orders = data;
+      console.log(this.orders);
+    },error => console.log(error)
+    );
   }
  
 }
