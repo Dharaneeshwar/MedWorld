@@ -1,0 +1,9 @@
+
+.sticky {
+        position: fixed;
+        width: 40%;
+}
+
+.a-center {
+    margin-top: 5vh;
+}

@@ -1,61 +1,37 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="login-box">
-<div class="container container1" >
-    <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-        <div class="panel panel-info custum-login-border" >
-            <div class="panel-heading custum-panel-heading" style="background-color: transparent; border-width: 0px;">
-                <div class="panel-title login-title " >LOGIN</div>
+<app-user-nav></app-user-nav>
+<div class="container center-y">
+    <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+                <img class="img-fluid " src="../../assets/login.svg" alt="">
             </div>
-
-            <div style="padding-top:30px" class="panel-body">
-
-                <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12 "></div>
-
-                <form id="loginform" class="form-horizontal " role="form">
-
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input id="email" type="text" class="form-control" name="email" value=""
-                            placeholder="Email">
-                    </div>
-
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input id="password" type="password" class="form-control" name="password"
-                            placeholder="Password">
-                    </div>
-
-
-                    <div style="margin-top:10px" class="form-group">
-
-                        <div class="col-sm-12 controls custum-center">
-                            <a id="submitButton" href="#" class="btn  login-btn">Login </a>
-
-                        </div>
-                    </div>
-
-
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <div class="p-5">
+                <h2 style="font-family: 'Patua One', cursive;">Login</h2>
+                <form (ngSubmit)="onsubmit()" class="mt-4">
                     <div class="form-group">
-                        <div class="col-md-12 control">
-                            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
-                                New User?
-                                <a id="signupLink" href="#"  >
-                                    Sign Up
-                                </a>
-                            </div>
-                        </div>
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" name="email" [(ngModel)]="login.email"
+                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" name="pass" [(ngModel)]="login.password"
+                            id="exampleInputPassword1" placeholder="Password">
+                    </div>
+                    <p *ngIf="showError" class="mt-2 text-danger">The credentials are wrong 😕</p>
+                    <div class="d-flex">
+                        <button *ngIf="!showLoading" type="submit" class="btn btn-primary">Submit</button>
+                        <div *ngIf="showLoading" class="spinner-border text-primary mt-1" role="status">
+                            <span class="sr-only">Loading...</span>
+                          </div>
                     </div>
                 </form>
-
-
-
+                <p class="mt-3">Create a account? <a routerLink="/signup" class="text-primary"><i>Sign up</i></a></p>
             </div>
         </div>
     </div>
-    <div class="container"> <img class="doctor-img" src="/assets/login-banner.jpg">
-    </div>
 </div>
-
-
-

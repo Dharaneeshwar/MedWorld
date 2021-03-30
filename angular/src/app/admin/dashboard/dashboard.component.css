@@ -1,0 +1,23 @@
+.tiny-btn {
+  border-radius: 5px;
+  padding: 6px;
+}
+.sticky {
+  position: fixed;
+  width: 40%;
+}
+
+.a-center {
+  margin-top: 5vh;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.r-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.r-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -1,1 +1,40 @@
-<p>dashboard works!</p>
+<div class="container mt-5">
+    <div class="row">
+        <div class="d-none d-md-block col-0 col-md-5 order-lg-1">
+            <div class="p-5 m-3">
+                <h2 style="font-family: 'Patua One', cursive;">All Product</h2>
+                <img class="img-fluid" src="../../../assets/cart.svg" alt="">
+                <p id="addMedButton" class="text-center mt-5"><button routerLink="/addProduct"
+                        class="btn btn-primary"><i class="fas fa-cart-plus pr-1"></i> Add a Product</button> </p>
+            </div>
+        </div>
+        <div class="col-12 col-md-7 order-lg-2">
+            <div class="pt-5">
+                <div class="table-responsive r-scroll">
+                    <table id="adminDashboard" class="text-center table table-striped">
+                        <tr>
+                            <th>Image</th>
+                            <th>Medicine Name</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Options</th>
+                        </tr>
+                        <tr *ngFor="let product of products">
+                            <td><img src="{{product.imageUrl}}" height="100px" alt=""></td>
+                            <td class="align-middle">{{product.productName}}</td>
+                            <td class="align-middle">₹ {{product.price}}</td>
+                            <td class="align-middle">{{product.quantity}}</td>
+                            <td class="align-middle">
+                                <p class="d-flex text-light pt-3">
+                                    <a (click)="editProduct(product.productId)"><i class="fas fa-pencil-alt mr-2 bg-warning tiny-btn"></i></a>
+                                    <a (click)="deleteProduct(product.productId)"><i class="fas fa-trash-alt bg-danger tiny-btn"></i></a>
+                                </p>
+                            </td>
+                        </tr>
+                        <!-- EXTRA -->
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

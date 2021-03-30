@@ -4,5 +4,5 @@ export class Product {
     productName: string = "";
     price: string = "";
     description: string = "";
-    quanity: string = "";
+    quantity: string = "";
 }

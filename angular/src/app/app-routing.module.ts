@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddproductComponent } from './admin/addproduct/addproduct.component';
 import { AdminComponent } from './admin/admin.component';
+import { EditproductComponent } from './admin/editproduct/editproduct.component';
 import { OrderlistComponent } from './admin/orderlist/orderlist.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
@@ -14,10 +15,7 @@ const routes: Routes = [
   {path:'admin', component:AdminComponent},
   {path:'addProduct', component:AddproductComponent},
   {path:'admin/orders', component:OrderlistComponent},
- 
-  // {path:'admin/edit', component:AdminComponent},
-  // {path:'admin', component:AdminComponent},
-  // {path:'admin', component:AdminComponent},
+  {path:'admin/edit/:id', component:EditproductComponent},
 
   // USER routes here
   {path:'',redirectTo: 'login', pathMatch:'full'},
