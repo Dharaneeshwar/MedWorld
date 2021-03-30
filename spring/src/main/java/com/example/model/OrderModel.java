@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
@@ -27,12 +27,12 @@ public class Order {
     @Column(name = "Price")
     private String Price;
 
-    public Order()
+    public OrderModel()
     {
 
     }
 
-    public Order(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
+    public OrderModel(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
         this.userId = userId;
         this.ProductName = productName;
         this.totalPrice = totalPrice;

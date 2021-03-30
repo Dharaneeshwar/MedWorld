@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.example.repository.ProductRepository;
 import com.example.exception.ResourceNotFoundException;
-import com.example.model.Product;
+import com.example.model.ProductModel;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -30,28 +30,28 @@ public class ProductController {
 
     // get all Products
     @GetMapping("/admin")
-    public List<Product> getAllProducts() {
+    public List<ProductModel> getAllProducts() {
         return productRepository.findAll();
     }
 
     @PostMapping("/admin/addProduct")
-    public ResponseEntity<String> createProduct(@RequestBody Product product)
+    public ResponseEntity<String> createProduct(@RequestBody ProductModel product)
     {
         productRepository.save(product);
         return new ResponseEntity<String>("Product Added!", HttpStatus.OK);
     }
     
     @GetMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long productId){
-        Product product = productRepository.findById(productId).orElseThrow(
+    public ResponseEntity<ProductModel> getProductById(@PathVariable Long productId){
+        ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
         return ResponseEntity.ok(product);
     }
 
     @PostMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<Product> editProduct(@PathVariable Long productId,@RequestBody Product productDetails)
+    public ResponseEntity<ProductModel> editProduct(@PathVariable Long productId,@RequestBody ProductModel productDetails)
     {
-        Product product = productRepository.findById(productId).orElseThrow(
+        ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
         product.setImageUrl(productDetails.getImageUrl());
         product.setDescription(productDetails.getDescription());
@@ -59,14 +59,14 @@ public class ProductController {
         product.setProductName(productDetails.getProductName());
         product.setQuantity(productDetails.getQuantity());
 
-        Product updatedProduct = productRepository.save(product);
+        ProductModel updatedProduct = productRepository.save(product);
         return ResponseEntity.ok(updatedProduct);
     }
     
     @GetMapping("/admin/delete/{productId}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long productId)
     {
-        Product product = productRepository.findById(productId).orElseThrow(
+        ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
         productRepository.delete(product);
         return new ResponseEntity<String>("Product deleted",HttpStatus.OK);
