@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-	@GetMapping("/")
+	@GetMapping("/api/")
 	public String testApi() {
-		return "Api is working!";
+		return "Api is working!!!";
 	}
 }

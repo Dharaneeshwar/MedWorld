@@ -14,7 +14,7 @@ export class OrderlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
-    this.orders = ([
+   /* this.orders = ([
       {
         "orderId":"1",
         "userid":"daranip",
@@ -33,12 +33,13 @@ export class OrderlistComponent implements OnInit {
         "Status":"Bought",
         "Price":"2000"
       }
-    ]);
+    ]);*/
   }
 
   private getOrders(){
     this.orderServices.getOrders().subscribe(data=>{
       this.orders = data;
+      console.log(this.orders);
     },error => console.log(error)
     );
   }
