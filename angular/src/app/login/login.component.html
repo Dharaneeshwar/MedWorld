@@ -7,30 +7,30 @@
             </div>
         </div>
         <div class="col-lg-6 order-lg-1">
-            <div class="p-5">
+            <div class="p-5" id="loginBox">
                 <h2 style="font-family: 'Patua One', cursive;">Login</h2>
                 <form (ngSubmit)="onsubmit()" class="mt-4">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email address</label>
                         <input type="email" class="form-control" name="email" [(ngModel)]="login.email"
-                            id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                            id="email" aria-describedby="emailHelp" placeholder="Enter email">
                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Password</label>
                         <input type="password" class="form-control" name="pass" [(ngModel)]="login.password"
-                            id="exampleInputPassword1" placeholder="Password">
+                            id="password" placeholder="Password">
                     </div>
                     <p *ngIf="showError" class="mt-2 text-danger">The credentials are wrong 😕</p>
                     <div class="d-flex">
-                        <button *ngIf="!showLoading" type="submit" class="btn btn-primary">Submit</button>
+                        <button *ngIf="!showLoading" type="submit" id="submitButton" class="btn btn-primary">Submit</button>
                         <div *ngIf="showLoading" class="spinner-border text-primary mt-1" role="status">
                             <span class="sr-only">Loading...</span>
                           </div>
                     </div>
                 </form>
-                <p class="mt-3">Create a account? <a routerLink="/signup" class="text-primary"><i>Sign up</i></a></p>
+                <p class="mt-3">New User ? <a routerLink="/signup" id="signupLink" class="text-primary"><i>Sign up</i></a></p>
             </div>
         </div>
     </div>

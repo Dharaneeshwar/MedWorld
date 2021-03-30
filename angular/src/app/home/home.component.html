@@ -1,14 +1,14 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <div>
-      <br><br>
-<div class="cartbody" id="medHomeBody">
-  
-<div class="custombox" *ngFor="let h of homeproduct">
-    <img src="{{h.imagelink}}" class="img-responsive ">
-    <div class="producttitle">{{h.medicinename}}</div>
-    <div class="productprice"><div class="pull-right"><a href="#" class="btn  buy-btn" role="button">BUY</a></div><div class="pricetext">{{h.price}}</div></div>
-</div>
+<div>
+    <br><br>
+    <div class="cartbody" id="medHomeBody">
 
-</div>
+        <div class="custombox" *ngFor="let h of homeproduct">
+            <img src="{{h.imagelink}}" class="img-responsive ">
+            <div class="producttitle">{{h.medicinename}}</div>
+            <div class="productprice">
+                <div class="pull-right"><a href="#" class="btn  buy-btn" role="button">BUY</a></div>
+                <div class="pricetext">{{h.price}}</div>
+            </div>
+        </div>
+
+    </div>

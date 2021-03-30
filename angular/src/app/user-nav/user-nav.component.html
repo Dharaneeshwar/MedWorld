@@ -1,4 +1,4 @@
-<nav id ="adminNavbar" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
+<nav id ="userNavbar" class="navbar navbar-expand-lg fixed-top navbar-dark bg-primary">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -8,13 +8,13 @@
       <a class="navbar-brand">Med World</a>
       <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
         <li class="nav-item">
-          <a id="adminProductButton" *ngIf="isNavButtonVisible"  class="nav-link" routerLink='/home'><i class="fas fa-home pr-1"></i>Home<span class="sr-only">(current)</span></a>
+          <a id="medHomeButton" *ngIf="isNavButtonVisible"  class="nav-link" routerLink='/home'><i class="fas fa-home pr-1"></i>Home<span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a id="adminOrderButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/cart'><i class="fas fa-shopping-cart pr-1"></i>Cart</a>
+          <a id="medCartButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/cart'><i class="fas fa-shopping-cart pr-1"></i>Cart</a>
         </li>
         <li class="nav-item">
-          <a id="adminOrderButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/orders'><i class="fas fa-truck pr-1"></i>My Orders</a>
+          <a id="medOrderButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/orders'><i class="fas fa-truck pr-1"></i>My Orders</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
