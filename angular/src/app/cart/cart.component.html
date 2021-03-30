@@ -1,1 +1,27 @@
-<p>cart works!</p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+ 
+<div class="container-row" class="medCartBody">
+    <br><br>
+    <div   class="col-md-12">
+    <table class="table">
+      <thead>
+      <tr class="my-head" style="background-color: rgb(243, 46, 105); ">
+         <th style="text-align:center">Product Name</th>
+        <th style="text-align:center">Price</th>
+        <th style="text-align:center">Quantity</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody align="center">
+      <tr *ngFor="let p of product" class="my-row">
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{p.name}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{p.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{p.quantity}}</td>
+        <td ><button class="trash" style="font-size:24px"><i class="fa fa-trash-o" ></i></button></td>
+      </tr>
+      </tbody>
+    </table>
+    <button type="button" class="btn">Place Order</button>
+  </div>
+</div>
