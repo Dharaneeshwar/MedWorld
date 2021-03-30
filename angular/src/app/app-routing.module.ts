@@ -16,8 +16,6 @@ const routes: Routes = [
   {path:'addProduct', component:AddproductComponent},
   {path:'admin/orders', component:OrderlistComponent},
   {path:'admin/edit/:id', component:EditproductComponent},
-  // {path:'admin', component:AdminComponent},
-  // {path:'admin', component:AdminComponent},
 
   // USER routes here
   {path:'',redirectTo: 'login', pathMatch:'full'},
