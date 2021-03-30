@@ -1,0 +1,68 @@
+.btn
+{
+    background-color:rgba(252, 235, 0, 0.986);
+    border-radius: 4px;
+    border-width: 0px;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    font-weight: 500;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 6px 4px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+.btn:focus{
+    
+    outline-width: 0px;
+}
+.btn:hover{
+    transform: scale(1.02);
+    transition: 0.4s;
+}
+.my-head
+{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   
+    color:white;
+}
+.mytitle{
+    align-items: center;
+
+}
+table {
+    border-collapse: collapse;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+.my-row
+{
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+.trash{
+     background-color: rgb(255, 53, 87);
+     border-color: transparent;
+     color: white;
+    
+     border-radius: 25%;
+}
+.trash:focus{
+    
+    outline-width: 0px;
+    
+    transition: 0.2s;
+}
+.trash:hover{
+    transform: scale(1.03);
+    transition: 0.2s;
+}
+
+tr:nth-child(even) {
+    background-color: rgb(231, 231, 231);
+}
+tr:nth-child(odd){
+    background-color: rgb(255, 255, 255);
+}
