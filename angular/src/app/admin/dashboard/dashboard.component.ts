@@ -26,10 +26,10 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  editProduct(id: string) {
+  editProduct(id: number) {
     this.router.navigateByUrl('admin/edit/' + id);
   }
-  deleteProduct(id: string) {
+  deleteProduct(id: number) {
     if (confirm('Do you want to delete for sure?')) {
       this.productService.deleteProductById(id).subscribe(
         (data) => {

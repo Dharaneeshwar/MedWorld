@@ -10,7 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class EditproductComponent implements OnInit {
 
-  id:string = '0';
+  id:number = 0;
   product:Product = new Product();
   constructor(private productService:ProductService,private activatedRoute:ActivatedRoute,private router:Router) { }
 

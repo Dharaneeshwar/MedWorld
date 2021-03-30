@@ -62,5 +62,14 @@ public class ProductController {
         Product updatedProduct = productRepository.save(product);
         return ResponseEntity.ok(updatedProduct);
     }
+    
+    @GetMapping("/admin/delete/{productId}")
+    public ResponseEntity<String> deleteProduct(@PathVariable Long productId)
+    {
+        Product product = productRepository.findById(productId).orElseThrow(
+                ()->new ResourceNotFoundException("Product Not yet Added!"));
+        productRepository.delete(product);
+        return new ResponseEntity<String>("Product deleted",HttpStatus.OK);
+    }
 
 }

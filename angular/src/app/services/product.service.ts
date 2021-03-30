@@ -18,13 +18,13 @@ export class ProductService {
   addProduct(product:Product):Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}/admin/addProduct`,product);
   } 
-  getProductById(id:string):Observable<Product>{
+  getProductById(id:number):Observable<Product>{
     return this.httpClient.get<Product>(`${this.baseUrl}/admin/productEdit/${id}`);
   }
-  saveProductById(id:string,product:Product):Observable<Object>{
+  saveProductById(id:number,product:Product):Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}/admin/productEdit/${id}`,product);
   }
-  deleteProductById(id:string):Observable<Object>{
+  deleteProductById(id:number):Observable<Object>{
     return this.httpClient.get(`${this.baseUrl}/admin/delete/${id}`);
   }
 }
