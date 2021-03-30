@@ -38,6 +38,6 @@ export class LoginComponent implements OnInit {
     
   }
   private goToHome(){
-    this.router.navigateByUrl('/home')
+    this.router.navigateByUrl('/home');
   }
 }

@@ -1,82 +1,68 @@
+<app-user-nav></app-user-nav>
+<div class="container center-y">
+    <div class="row align-items-center">
+        <div class="col-lg-6 order-lg-2">
+            <div class="p-5">
+                <img class="img-fluid " src="../../assets/login.svg" alt="">
+            </div>
+        </div>
+        <div class="col-lg-6 order-lg-1">
+            <div class="p-5 mt-4" id="loginBox">
+                <h2 style="font-family: 'Patua One', cursive;">Sign up</h2>
+                <form (ngSubmit)="onsubmit()" class="mt-4">
+                    <div class="form-group">
+                        <label for="email" class="col-md-5 control-label">Email</label>
+                        <div class="col-md-9">
+                            <input id="email" [(ngModel)]="signup.email" type="email" class="form-control" name="name"
+                                placeholder="yourmail@email.com">
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="username" class="col-md-5 control-label"> Username</label>
+                        <div class="col-md-9">
+                            <input id="username" [(ngModel)]="signup.username" type="text" class="form-control"
+                                name="email" placeholder="Enter your Name">
+                        </div>
+                    </div>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="signup-box">
-    <div class="container container1">
-<div id="signupBox" style=" margin-top:50px; right: 100px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-    <div class="panel panel-info custum-panel-heading">
-        <div class="panel-heading sign-up-box custum-panel-heading" style="background-color: transparent; border-width: 0px;">
-            
-            <div class="panel-title sign-up-title ">Sign Up</div>
-            
-          
-        </div>  
-        <div class="panel-body " >
-            <form id="signupform" class="form-horizontal " role="form">
-                
-                <div id="signupalert" style="display:none" class="alert alert-danger">
-                    <p>Error:</p>
-                    <span></span>
-                </div>
-                    
-                
-                  
-                <div class="form-group ">
-                    <label for="email" class="col-md-3 control-label"> Email</label>
-                    <div class="col-md-9">
-                        <input id="email" type="text" class="form-control" name="email" placeholder="Enter Email Address">
-                    </div>
-                </div>
-                    
-                <div class="form-group">
-                    <label for="username" class="col-md-3 control-label">Username</label>
-                    <div class="col-md-9">
-                        <input id="username" type="text" class="form-control" name="username" placeholder="Enter Username">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="mobilenumber" class="col-md-3 control-label">Mobile Number</label>
-                    <div class="col-md-9">
-                        <input id="mobilenumber" type="text" class="form-control" name="mobilenumber" placeholder="Enter Mobile Number">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="col-md-3 control-label" >Password</label>
-                    <div class="col-md-9">
-                        <input type="password" id="password" class="form-control" name="password" placeholder="Enter Password">
-                    </div>
-                </div>
-                    
-                <div class="form-group">
-                    <label for="confirmpassword" class="col-md-3 control-label">Confirm password</label>
-                    <div class="col-md-9">
-                        <input type="text" id="confirmpassword" class="form-control" name="icode" placeholder="Confirm Password">
-                    </div>
-                </div>
 
-                <div class="form-group">                                    
-                    <div class="col-md-offset-3 col-md-9">
-                        <button id="submitButton" type="button" class="btn sign-up-btn"><i class="icon-hand-right"></i> Sign Up</button>
-                          
+                    <div class="form-group">
+                        <label for="mobilenumber" class="col-md-5 control-label">Mobile Number</label>
+                        <div class="col-md-9">
+                            <input id="mobilenumber" [(ngModel)]="signup.mobileNumber" type="text" class="form-control"
+                                name="mobilenumber" placeholder="Enter Mobile Number">
+                        </div>
                     </div>
-                </div>
-                
-                <div style="border-top: 1px solid #999; padding-top:20px"  class="form-group">
-                                                               
-                        
-                </div>
-                
-                
-                
-            </form>
-            <div id="signinLink" style="float:right; font-size: 85%; position: relative; top:-10px"><a id="signinlink" href="#" >Sign In</a></div>
-            <div style="text-decoration:none; cursor:default; float:right; font-size: 85%; position: relative; top:-10px; color:white "><a >Already have an account?&nbsp;</a></div>
-     
-         </div>
-         
-     </div></div>
+                    <div class="form-group">
+                        <label for="password" class="col-md-5 control-label">Password</label>
+                        <div class="col-md-9">
+                            <input type="password" [(ngModel)]="signup.password" id="password" class="form-control"
+                                name="password" placeholder="Enter Password">
+                        </div>
+                    </div>
 
-         <div class="container" > <img style="right: 80px;" src="assets/signup-banner.jpg" class="doctor-img-signup" >
-         </div>
+                    <div class="form-group">
+                        <label for="confirmpassword" class="col-md-5 control-label">Confirm Password</label>
+                        <div class="col-md-9">
+                            <input type="password" id="confirmpassword" [(ngModel)]="signup.confirmPassword"
+                                class="form-control" name="cpassword" placeholder="Confirm Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-9">
+                            <button *ngIf="!showLoading" type="submit" id="submitButton"
+                                class="btn btn-primary">Submit</button>
+                            <div *ngIf="showLoading" class="spinner-border text-primary mt-1" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="m-3">Already have a account? <a routerLink="/login" id="siginLink"
+                            class="text-primary"><i>Log in</i></a></p>
+                </form>
+            </div>
+        </div>
     </div>
+</div>
+<!-- block -->
