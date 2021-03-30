@@ -1,9 +1,9 @@
 export class Order {
-    orderId: string = "";
-    userid:string = "";
-    ProductName:string = ""; 
+    orderId: number = 0;
+    userId: number = 0;
+    productName:string = ""; 
     quantity:number = 0; 
     totalPrice:string = "";
-    Status:string = "";
-    Price:string = "";
+    status:string = "";
+    price:string = "";
 }

@@ -1,5 +1,5 @@
 export class Product {
-    productId: string = "";
+    productId: number = 0;
     imageUrl: string = "";
     productName: string = "";
     price: string = "";
