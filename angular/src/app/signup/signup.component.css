@@ -1,0 +1,56 @@
+.sign-up-btn{
+    background-color: rgb(255, 67, 99);
+    color: white;
+    border-width: 0px;
+}
+.sign-up-box{
+    background-color: transparent;  
+    display: flex;
+    justify-content: center;
+    
+}
+.sign-up-title{
+    color: rgb(0, 0, 0);
+    font-size:x-large;
+    font-weight: 700;
+    
+    margin: 0px auto;
+}
+.custum-panel-heading{
+    background-color: transparent;
+    border-color: transparent;
+}
+
+.doctor-img-signup{
+    width: 390px;
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+    flex-wrap: wrap;
+    
+}
+.container1{
+    margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  padding: 100px;
+  
+}
+.signup-box{
+    display: flex;
+    
+    
+}
+@media (max-width:1000px){
+    .doctor-img-signup{
+        width: 0px;
+    }
+    .container1{
+        padding: 100px;
+    }
+
+}
