@@ -1,26 +1,21 @@
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
- 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<div class="container-row" id="medOrderBody">
-  <br><br>
-    <div class="col-md-12">
-    <table class="table">
-      <thead>
+<app-user-nav></app-user-nav>
+<div class="col-md-12 pt-5 mt-5">
+  <table class="table">
+    <thead>
       <tr class="my-head" style="background-color:rgb(243, 46, 105);">
         <th style="text-align:center">ProductName</th>
         <th style="text-align:center">Price</th>
         <th style="text-align:center">Quantity</th>
         <th style="text-align:center">TotalPrice</th>
       </tr>
-      </thead>
-      <tbody  align="center">
+    </thead>
+    <tbody align="center">
       <tr *ngFor="let o of orders" class="my-row">
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.name}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.price}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.quantity}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.quantity*o.price}}</td>
       </tr>
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
 </div>
