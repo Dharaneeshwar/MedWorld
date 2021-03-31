@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.model.UserModel;
 import com.example.repository.UserModelRepository;
 
-
-@RestController
 @CrossOrigin(origins = "http://localhost:8081")
-
+@RestController
 public class SignupController {
 
     @Autowired
@@ -35,7 +33,8 @@ public class SignupController {
         {
             return false;
         }
-
+        user.setActive(true);
+        user.setRole("user");
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setPassword(String.valueOf(user.getPassword().hashCode()));
         userModelRepository.save(user);
