@@ -18,9 +18,9 @@ import com.example.security.MyUserDetailsService;
 import com.example.util.JwtUtil;
 
 
-
-@RestController
 @CrossOrigin(origins = "http://localhost:8081")
+@RestController
+@RequestMapping("/")
 public class LoginController {
 
     @Autowired
