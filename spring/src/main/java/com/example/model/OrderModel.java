@@ -27,6 +27,9 @@ public class OrderModel {
     @Column(name = "price")
     private String price;
 
+    @ManyToOne
+    private UserModel userModel;
+
     public OrderModel()
     {
 
