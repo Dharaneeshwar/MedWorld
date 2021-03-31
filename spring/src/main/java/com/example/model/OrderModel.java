@@ -4,41 +4,44 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Orders")
-public class Order {
+public class OrderModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
-
-    @Column(name = "userId")
+    
+    @Column(name = "userId", nullable = false)
     private Long userId;
 
-    @Column(name = "ProductName")
-    private String ProductName;
+    @Column(name = "productName")
+    private String productName;
 
     @Column(name = "totalPrice")
     private String totalPrice;
 
-    @Column(name = "Status")
-    private String Status;
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "Price")
-    private String Price;
+    @Column(name = "price")
+    private String price;
 
-    public Order()
+    @ManyToOne
+    private UserModel userModel;
+
+    public OrderModel()
     {
 
     }
 
-    public Order(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
+    public OrderModel(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
         this.userId = userId;
-        this.ProductName = productName;
+        this.productName = productName;
         this.totalPrice = totalPrice;
-        this.Status = status;
+        this.status = status;
         this.quantity = quantity;
-        this.Price = price;
+        this.price = price;
     }
 
     public Long getOrderId() {
@@ -58,11 +61,11 @@ public class Order {
     }
 
     public String getProductName() {
-        return ProductName;
+        return productName;
     }
 
     public void setProductName(String productName) {
-        this.ProductName = productName;
+        this.productName = productName;
     }
 
     public String getTotalPrice() {
@@ -74,11 +77,11 @@ public class Order {
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String status) {
-        this.Status = status;
+        this.status = status;
     }
 
     public int getQuantity() {
@@ -90,10 +93,10 @@ public class Order {
     }
 
     public String getPrice() {
-        return Price;
+        return price;
     }
 
     public void setPrice(String price) {
-        this.Price = price;
+        this.price = price;
     }
 }

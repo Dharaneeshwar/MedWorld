@@ -11,26 +11,26 @@ import { ProductService } from 'src/app/services/product.service';
 export class DashboardComponent implements OnInit {
   products: Product[] = [];
   constructor(private productService: ProductService, private router: Router) {}
-/*
-  products: Product[] = [];
-  constructor(private productService: ProductService) { }
-*/
+
   ngOnInit(): void {
     this.getProducts();
   }
 
   private getProducts() {
-    this.productService.getProducts().subscribe(data => {
-      this.products = data;
-    }, error => console.log(error)
+    this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data;
+      },
+      (error) => console.log(error)
     );
   }
 
-  editProduct(id: number) {
+  editProduct(id: string) {
     this.router.navigateByUrl('admin/edit/' + id);
   }
-  deleteProduct(id: number) {
+  deleteProduct(id: string) {
     if (confirm('Do you want to delete for sure?')) {
+      this.products = this.products.filter(obj => obj.productId !== id);
       this.productService.deleteProductById(id).subscribe(
         (data) => {
           console.log(data);

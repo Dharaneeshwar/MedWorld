@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -21,7 +21,7 @@ import { EditproductComponent } from './admin/editproduct/editproduct.component'
 import { UserNavComponent } from './user-nav/user-nav.component';
 import { ProfileComponent } from './profile/profile.component';
 import { EditProfileComponent } from './edit-profile/edit-profile.component';
-
+import { TokenInterceptorService } from './services/token-interceptor.service'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +48,11 @@ import { EditProfileComponent } from './edit-profile/edit-profile.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

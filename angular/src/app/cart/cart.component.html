@@ -1,1 +1,27 @@
-<p>cart works!</p>
+<app-user-nav></app-user-nav>
+<div id="medCartBody" class="container">
+  <h2 class="mt-5 pt-5"  style="font-family: 'Patua One', cursive;">My Cart</h2>    
+  <div class="col-md-11 mt-4">
+  <div class="table-responsive r-scroll">
+  <table class="table">
+    <thead>
+      <tr class="my-head bg-primary text-light">
+        <th style="text-align:center">Product</th>
+        <th style="text-align:center">Price</th>
+        <th style="text-align:center">Quantity</th>
+        <th style="text-align:center">Amount</th>
+      </tr>
+    </thead>
+    <tbody class="text-center">
+      <tr *ngFor="let items of cartItems" class="my-row">
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.name}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.quantity}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.quantity*items.price}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button class="btn btn-primary mt-5">Proceed to payment</button>
+</div>
+</div>

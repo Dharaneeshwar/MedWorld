@@ -6,33 +6,47 @@ import { SignupService } from '../services/signup.service';
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  signup:Signup = new Signup();
-
-  constructor(private signupServices:SignupService,private router:Router) { }
+  signup: Signup = new Signup();
+  confirmPass: string = '';
+  constructor(private signupServices: SignupService, private router: Router) {}
 
   ngOnInit(): void {
+    // localStorage.setItem('token','12345678900987654321');
   }
-  showLoading:boolean = false;
-  onsubmit(){
+  showError: boolean = false;
+  showLoading: boolean = false;
+  showPassNotMatch:boolean = false;
+
+  onsubmit() {
     console.log(this.signup);
-    
-    this.showLoading = false;
-    this.signupServices.register(this.signup).subscribe((data) => {
-      console.log(data);
-      if (data){
-        this.goToLogin();
-      } else {
-        this.showLoading = false;
-      }
-    }, (error) => {
-      console.log(error);
-      this.showLoading = false;
-    })
+    this.showPassNotMatch = false;
+    this.showError = false;
+    if (this.signup.password == this.confirmPass) {
+      this.showLoading = true;
+      this.signupServices.register(this.signup).subscribe(
+        (data) => {
+          console.log(data);
+          if (data) {
+            this.goToLogin();
+          } else {
+            this.showLoading = false;
+            this.showError = true;
+          }
+        },
+        (error) => {
+          console.log(error);
+          this.showLoading = false;
+          this.showError = true;
+        }
+      );
+    } else {
+      this.showPassNotMatch = true;
+    }
   }
-  private goToLogin(){
+  private goToLogin() {
     this.router.navigateByUrl('/login');
   }
 }
