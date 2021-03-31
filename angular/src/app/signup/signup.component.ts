@@ -13,7 +13,9 @@ export class SignupComponent implements OnInit {
   confirmPass: string = '';
   constructor(private signupServices: SignupService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // localStorage.setItem('token','12345678900987654321');
+  }
   showError: boolean = false;
   showLoading: boolean = false;
   showPassNotMatch:boolean = false;
