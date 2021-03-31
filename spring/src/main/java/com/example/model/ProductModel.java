@@ -25,11 +25,11 @@ public class ProductModel{
     @Column(name = "quantity")
     private String quantity;
 
-    public Product() {
+    public ProductModel() {
 
     }
 
-    public Product(String imageUrl, String productName, String price, String description, String quantity) {
+    public ProductModel(String imageUrl, String productName, String price, String description, String quantity) {
         this.imageUrl = imageUrl;
         this.productName = productName;
         this.price = price;

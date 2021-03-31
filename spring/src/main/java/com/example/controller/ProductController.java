@@ -28,28 +28,33 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
-    // get all Products
     @GetMapping("/admin")
-    public List<ProductModel> getAllProducts() {
+    public List<ProductModel> getProduct() {
+        return productRepository.findAll();
+    }
+
+    @GetMapping("/home")
+    public List<ProductModel> getHomeProduct() {
         return productRepository.findAll();
     }
 
     @PostMapping("/admin/addProduct")
-    public ResponseEntity<String> createProduct(@RequestBody ProductModel product)
+    public ResponseEntity<String> productSave(@RequestBody ProductModel product)
     {
         productRepository.save(product);
         return new ResponseEntity<String>("Product Added!", HttpStatus.OK);
     }
     
     @GetMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<ProductModel> getProductById(@PathVariable Long productId){
+    public ResponseEntity<ProductModel> productEditData(@PathVariable Long productId)
+    {
         ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
         return ResponseEntity.ok(product);
     }
 
     @PostMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<ProductModel> editProduct(@PathVariable Long productId,@RequestBody ProductModel productDetails)
+    public ResponseEntity<ProductModel> productEditSave(@PathVariable Long productId,@RequestBody ProductModel productDetails)
     {
         ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
@@ -64,7 +69,7 @@ public class ProductController {
     }
     
     @GetMapping("/admin/delete/{productId}")
-    public ResponseEntity<String> deleteProduct(@PathVariable Long productId)
+    public ResponseEntity<String> productDelete(@PathVariable Long productId)
     {
         ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
