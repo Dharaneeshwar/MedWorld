@@ -8,12 +8,16 @@ import { Router } from '@angular/router';
 })
 export class UserNavComponent implements OnInit {
   isNavButtonVisible:boolean = true;
-
+  isCartVisible:boolean = true;
   constructor(private router:Router) { }
 
   ngOnInit(): void {
     if (this.router.url == '/login' || this.router.url == '/signup'){
       this.isNavButtonVisible = false;
+      this.isCartVisible = false;
+    }
+    if (this.router.url == '/cart'){
+      this.isCartVisible = false;
     }
   }
 
