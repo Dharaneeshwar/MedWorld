@@ -1,15 +1,40 @@
 <app-user-nav></app-user-nav>
 <div>
-    <br><br>
-    <div class="cartbody" id="medHomeBody">
-
-        <div class="custombox" *ngFor="let h of homeproduct">
-            <img src="{{h.imagelink}}" class="img-responsive ">
-            <div class="producttitle">{{h.medicinename}}</div>
-            <div class="productprice">
-                <div class="pull-right"><a href="#" class="btn  buy-btn" role="button">BUY</a></div>
-                <div class="pricetext">{{h.price}}</div>
+    <div class="container mt-5 pt-4">
+        <h2 class="mt-5" style="font-family: 'Patua One', cursive;">All Medicines</h2>
+        
+        <div *ngIf="!loading" id="product_show" class="container mt-3 d-flex flex-wrap justify-content-around mb-5">
+            
+            <div *ngFor="let product of homeproducts" class="card m-3" style="width: 18rem;border-radius: 5px;">
+                <img class="card-img-top" src="{{product.imageUrl}}" alt="Card image cap" style="border-radius: 5px;">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.productName}}</h5>
+                    <p class="card-text product-content no-scroll">{{product.description}}</p>
+                    <p class="mt-3" style="color: black; font-weight: 500;">Price: ₹ {{product.price}}</p>
+                    <a (click)="addToCart(product.productId)" class="text-primary" style="font-size: x-large;"><i class="fas fa-cart-plus p-2"></i></a>
+                </div>
             </div>
         </div>
-
     </div>
+
+    <div *ngIf="loading" class="d-block mx-auto mt-5 loadingio-spinner-spinner-dnkbmznq7g">
+        <div class="ldio-2ffqxrgkd35">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <h5 *ngIf="notLoading" class="text-center">The Server did not connect</h5>
+
+
+</div>

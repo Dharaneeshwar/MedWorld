@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/styles.css"
-            ],
+              ],
             "scripts": []
           },
           "configurations": {
