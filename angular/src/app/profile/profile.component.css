@@ -1,0 +1,26 @@
+/* .card{
+   margin-top: 20px;  
+   margin-left: 20px; 
+   width: max-content; 
+   height:  fit-content; 
+   border-radius: 7px; 
+   border-width: 0px; 
+   box-shadow: 0.01em 0.01em 4px 0.01em #888888;
+      
+}
+.card1{
+    width: 350px;
+}
+
+@media (max-width:900px){
+    .card{
+        width: 100%;
+   margin-right: 20px; 
+    }
+} */
+
+@media (max-width:900px){
+    .my-class{
+        width: 100%;
+    }
+}

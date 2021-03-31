@@ -19,6 +19,8 @@ import { HomeComponent } from './home/home.component';
 import { UserOrderComponent } from './user-order/user-order.component';
 import { EditproductComponent } from './admin/editproduct/editproduct.component';
 import { UserNavComponent } from './user-nav/user-nav.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EditProfileComponent } from './edit-profile/edit-profile.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { UserNavComponent } from './user-nav/user-nav.component';
     HomeComponent,
     UserOrderComponent,
     EditproductComponent,
-    UserNavComponent
+    UserNavComponent,
+    ProfileComponent,
+    EditProfileComponent
   ],
   imports: [
     BrowserModule,
