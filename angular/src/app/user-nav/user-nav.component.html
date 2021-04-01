@@ -15,6 +15,9 @@
         <li class="nav-item">
           <a id="medOrderButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/orders'><i class="fas fa-truck pr-1"></i>My Orders</a>
         </li>
+        <li class="nav-item">
+          <a id="profileButton" *ngIf="isNavButtonVisible" class="nav-link"  routerLink='/profile'><i class="fas fa-user pr-1"></i>Profile</a>
+        </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
         <button (click)="logout()" id = "logoutButton" *ngIf="isNavButtonVisible" class="btn btn-outline-light my-2 my-sm-0" type="submit"><i class="fas fa-sign-out-alt pr-1"></i>Logout</button>

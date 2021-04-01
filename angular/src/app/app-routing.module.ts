@@ -7,6 +7,7 @@ import { OrderlistComponent } from './admin/orderlist/orderlist.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserOrderComponent } from './user-order/user-order.component';
 
@@ -24,7 +25,7 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'cart',component:CartComponent},
   {path:'orders',component:UserOrderComponent},
-  
+  {path:'profile',component:ProfileComponent}
 
 ];
 

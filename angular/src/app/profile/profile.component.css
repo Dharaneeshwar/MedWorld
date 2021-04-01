@@ -1,26 +1,35 @@
-/* .card{
-   margin-top: 20px;  
-   margin-left: 20px; 
-   width: max-content; 
-   height:  fit-content; 
-   border-radius: 7px; 
-   border-width: 0px; 
-   box-shadow: 0.01em 0.01em 4px 0.01em #888888;
-      
-}
-.card1{
-    width: 350px;
-}
-
-@media (max-width:900px){
-    .card{
-        width: 100%;
-   margin-right: 20px; 
+@media only screen and (min-width: 600px) {
+    .center-y {
+      margin-top: 10vh;
     }
-} */
-
-@media (max-width:900px){
-    .my-class{
-        width: 100%;
+    .form-box{
+      height: 70vh;
+      border-radius: 20px;
+      overflow-y: auto;
     }
-}
+    .form-box:after {
+      content  : "";
+      position : absolute;
+      z-index  : 1;
+      bottom   : 0;
+      left     : 0;
+      pointer-events   : none;
+      background-image : linear-gradient(to bottom, 
+                        rgba(255,255,255, 0), 
+                        rgba(255,255,255, 1) 50%);
+      width    : 100%;
+      height   : 5em;
+    }
+  }
+  
+
+  .no-scroll::-webkit-scrollbar { width: 0 !important }
+
+  .no-scroll { 
+      overflow: -moz-scrollbars-none; 
+      -ms-overflow-style: none;
+  }
+
+  .click{
+    cursor:pointer;
+  }
