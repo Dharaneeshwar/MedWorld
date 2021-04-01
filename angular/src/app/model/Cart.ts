@@ -1,5 +1,5 @@
 export class CartProduct{
-    name !: string; 
+    productName !: string; 
     price !: number;
     quantity !: number;
 }

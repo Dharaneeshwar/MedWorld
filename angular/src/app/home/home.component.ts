@@ -57,8 +57,8 @@ export class HomeComponent implements OnInit {
     ]
   }
 
-  addToCart(id:string){
-    this.homeService.addToCart(id).subscribe(data =>{
+  addToCart(id:string,quantity:number){
+    this.homeService.addToCart(id,quantity).subscribe(data =>{
       console.log("Added Successfully");
       this.loading = false;
     },error => console.log(error)

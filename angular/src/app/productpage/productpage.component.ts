@@ -9,12 +9,19 @@ import { HomeService } from '../services/home.service';
   styleUrls: ['./productpage.component.css'],
 })
 export class ProductpageComponent implements OnInit {
-  id!: number;
+  id!: string;
   product: Product = new Product();
+  quantity:number = 1;
+  inCart:boolean = false;
   constructor(private activatedRoute: ActivatedRoute,private homeService:HomeService, private router:Router) {}
 
   ngOnInit(): void {
+    
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.homeService.getProduct(this.id).subscribe(data => {
+      this.product = data;
+    },error => console.log(error)
+    )
     this.product = {
       productId: '1',
       productName: 'Paracetamol',
@@ -23,10 +30,11 @@ export class ProductpageComponent implements OnInit {
       quantity: '50',
       imageUrl: 'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
     };
+
   }
 
   addToCart(id:string){
-    this.homeService.addToCart(id).subscribe(data => {
+    this.homeService.addToCart(id,this.quantity).subscribe(data => {
       console.log("Added Sucessfully");
     },error => {
       console.log(error);
