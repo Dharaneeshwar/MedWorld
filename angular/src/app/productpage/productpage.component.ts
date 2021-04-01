@@ -11,37 +11,59 @@ import { HomeService } from '../services/home.service';
 export class ProductpageComponent implements OnInit {
   id!: string;
   product: Product = new Product();
-  quantity:number = 1;
-  inCart:boolean = false;
-  constructor(private activatedRoute: ActivatedRoute,private homeService:HomeService, private router:Router) {}
+  quantity: number = 1;
+  inCart: boolean = false;
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private homeService: HomeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.homeService.getProduct(this.id).subscribe(data => {
-      this.product = data;
-    },error => console.log(error)
-    )
+    this.homeService.getProduct(this.id).subscribe(
+      (data) => {
+        this.product = data;
+      },
+      (error) => console.log(error)
+    );
     this.product = {
       productId: '1',
       productName: 'Paracetamol',
       description: 'A tablet to cure headache and fever',
       price: '10',
       quantity: '50',
-      imageUrl: 'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
+      imageUrl:
+        'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
     };
-
   }
 
-  addToCart(id:string){
-    this.homeService.addToCart(id,this.quantity).subscribe(data => {
-      console.log("Added Sucessfully");
-    },error => {
-      console.log(error);
-    })
+  addToCart(id: string,source:string) {
+    console.log(id, this.quantity);
+    if (source == "btn"){
+      this.inCart = ! this.inCart;
+    }
+    if (this.inCart) {
+      this.homeService.addToCart(id, this.quantity).subscribe(
+        (data) => {
+          console.log('Added Sucessfully');
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
-  goToPayment(id:string){
-    this.router.navigateByUrl('/payment/p-'+id)
+  removeFromCart(id:string){
+    this.inCart = ! this.inCart;
+    this.homeService.removeFromCart(id).subscribe(data => {
+      console.log("Deleted from cart");
+    },error => console.log(error)
+    );
+  }
+
+  goToPayment(id: string) {
+    this.router.navigateByUrl('/payment/p-' + id);
   }
 }

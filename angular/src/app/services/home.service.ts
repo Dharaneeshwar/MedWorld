@@ -22,4 +22,9 @@ export class HomeService {
   getCartInfo(productId:string):Observable<CartProduct>{
     return this.httpClient.get<CartProduct>(`${this.baseUrl}/home/${productId}`);
   }
+
+  removeFromCart(id:string):Observable<Object>{
+    return this.httpClient.post(`${this.baseUrl}/cart/delete`,{'id':id});
+  }
+
 }

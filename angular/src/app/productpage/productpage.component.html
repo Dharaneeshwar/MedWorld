@@ -13,11 +13,12 @@
             <p class="text-muted">{{product.description}}</p>
             <div class="form-group" style="width: 50%;">
                 <label for="exampleInputEmail1"><h5>Quantity:</h5></label>
-                <input type="number" min="1" max="10" class="form-control" id="quantity" value="1">
-                <small id="emailHelp" class="form-text text-muted">You can only select quantity from 1 to 10</small>
+                <input type="number" (change)="addToCart(product.productId,'quantity')" min="1" max="10" class="form-control" id="quantity" [(ngModel)]="quantity" value="1">
+                <small id="emailHelp" class="form-text text-muted" >You can only select quantity from 1 to 10</small>
               </div>
             <div class="d-flex justify-content-between px-5 mt-5">
-                <button (click)="addToCart(product.productId)" class="btn btn-primary mr-2" style="width: 50%;">Add To Cart</button>
+                <button *ngIf="!inCart" (click)="addToCart(product.productId,'btn')" class="btn btn-primary mr-2" style="width: 50%;">Add To Cart</button>
+                <button *ngIf="inCart" (click)="removeFromCart(product.productId)" class="btn btn-primary mr-2" style="width: 50%;">Remove From Cart</button>
                 <button (click)="goToPayment(product.productId)" class="btn btn-outline-primary ml-2" style="width: 50%;">Order directly</button>
             </div>
         </div>
