@@ -7,9 +7,11 @@ import { OrderlistComponent } from './admin/orderlist/orderlist.component';
 import { CartComponent } from './cart/cart.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
+import { ProductpageComponent } from './productpage/productpage.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserOrderComponent } from './user-order/user-order.component';
+import { PaymentComponent } from './payment/payment.component';
 
 const routes: Routes = [
   // ADMIN routes here
@@ -25,7 +27,10 @@ const routes: Routes = [
   {path:'home',component:HomeComponent},
   {path:'cart',component:CartComponent},
   {path:'orders',component:UserOrderComponent},
-  {path:'profile',component:ProfileComponent}
+  {path:'profile',component:ProfileComponent},
+  {path:'product/:id',component:ProductpageComponent},
+  {path:'payment',redirectTo: '/home', pathMatch:'full'},
+  {path:'payment/:payFor',component:PaymentComponent}
 
 ];
 
