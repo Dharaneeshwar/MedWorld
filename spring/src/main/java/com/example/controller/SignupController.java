@@ -15,7 +15,6 @@ import com.example.repository.UserModelRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/")
 public class SignupController {
 
     @Autowired

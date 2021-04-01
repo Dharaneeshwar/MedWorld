@@ -20,7 +20,6 @@ import com.example.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
-@RequestMapping("/")
 public class LoginController {
 
     @Autowired
