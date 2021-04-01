@@ -17,44 +17,44 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProducts();
-    this.loading = false;
+    this.loading = true;
     this.notLoading = false;
   }
 
   private getProducts() {
-    // this.productService.getProducts().subscribe((data) => {
-    //   this.homeproducts = data;
-    //   this.loading = true;
-    // },error => {
-    //   console.log(error);
-    //   this.notLoading = true;
-    //   this.loading = false;
-    // }
-    // );
-    this.homeproducts = [
-      {
-        'productId':'1',
-        'productName':'Paracetamol',
-        'description':'A tablet to cure headache and fever',
-        'price':'10',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      },{
-        'productId':'2',
-        'productName':'Paracetamol',
-        'description':'A tablet to cure headache and fever',
-        'price':'10',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      },{
-        'productId':'3',
-        'productName':'Paracetamol',
-        'description':'A tablet to cure headache and fever',
-        'price':'10',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      }
-    ]
+    this.productService.getProducts().subscribe((data) => {
+      this.homeproducts = data;
+      this.loading = true;
+    },error => {
+      console.log(error);
+      this.notLoading = true;
+      this.loading = false;
+    }
+    );
+    // this.homeproducts = [
+    //   {
+    //     'productId':'1',
+    //     'productName':'Paracetamol',
+    //     'description':'A tablet to cure headache and fever',
+    //     'price':'10',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   },{
+    //     'productId':'2',
+    //     'productName':'Paracetamol',
+    //     'description':'A tablet to cure headache and fever',
+    //     'price':'10',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   },{
+    //     'productId':'3',
+    //     'productName':'Paracetamol',
+    //     'description':'A tablet to cure headache and fever',
+    //     'price':'10',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   }
+    // ]
   }
 
   addToCart(id:string,quantity:number){

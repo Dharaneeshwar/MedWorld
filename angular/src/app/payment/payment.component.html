@@ -1,8 +1,25 @@
 <app-user-nav></app-user-nav>
 <div class="container">
-  <h2 class="mt-5 pt-5"  style="font-family: 'Patua One', cursive;">Pay now/ Cash on Delivery</h2> 
-  <div class="container mt-5">
-      Do all stuff here...
+  <h2 class="mt-5 pt-5" style="font-family: 'Patua One', cursive;">Payment Options</h2>
+  <div class="container">
+    <div class="row">
+      <div class="d-none d-md-block col-0 col-md-6 order-lg-1 mt-5">
+        <div class="px-4 pb-4">
+          <img class="img-fluid mt-5" src="../../assets/pay.svg" alt="">
+        </div>
+      </div>
+      <div class="col-12 col-md-6 order-lg-2  center-y">
+        <div class="">
+          <h3 class="text-center pb-4" style="font-family: 'Patua One', cursive;">Use PaymentGateway to Pay</h3>
+          <button (click)="placeOrderPay()" class="mt-4 d-block mx-auto btn btn-primary">Pay now</button>
+        </div>
+        <hr class="my-5 border border-muted">
+
+        <div class="">
+          <h3 class="text-center pb-4" style="font-family: 'Patua One', cursive;">Choose to pay later</h3>
+          <button (click)="placeOrderCOD()" class="mt-4 d-block mx-auto btn btn-primary">Cash on delivery</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <button (click)="placeOrder()" class="mt-4 btn btn-primary">Place Order</button>
-  </div>
+</div>

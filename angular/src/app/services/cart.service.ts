@@ -14,4 +14,8 @@ export class CartService {
     return this.httpClient.get<CartProduct[]>(`${this.baseUrl}/cart`);
   }
 
+  getTotal():Observable<any>{
+    return this.httpClient.get(`${this.baseUrl}/cart/total`)
+  }
+
 }
