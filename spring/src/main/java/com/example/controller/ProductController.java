@@ -52,7 +52,7 @@ public class ProductController {
     }
 
     @PostMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<ProductModel> productEditSave(@PathVariable Long productId,@RequestBody ProductModel productDetails)
+    public ResponseEntity<String> productEditSave(@PathVariable Long productId,@RequestBody ProductModel productDetails)
     {
         ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));
@@ -63,7 +63,7 @@ public class ProductController {
         product.setQuantity(productDetails.getQuantity());
 
         ProductModel updatedProduct = productRepository.save(product);
-        return ResponseEntity.ok(updatedProduct);
+        return ResponseEntity.ok("Product details updated");
     }
     
     @GetMapping("/admin/delete/{productId}")

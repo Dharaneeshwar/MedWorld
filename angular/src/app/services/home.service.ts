@@ -14,6 +14,10 @@ export class HomeService {
   getProduct(id:string):Observable<Product>{
     return this.httpClient.get<Product>(`${this.baseUrl}/product/${id}`)
   }
+  getProducts(): Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/home`);
+  }
+
 
   addToCart(id:string,quantity:number):Observable<CartProduct>{
     return this.httpClient.post<CartProduct>(`${this.baseUrl}/home/${id}`,{'id':id,'quantity':quantity});

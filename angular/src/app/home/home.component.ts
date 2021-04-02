@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../model/product';
 import { HomeService } from '../services/home.service';
-import { ProductService } from '../services/product.service';
+//import { ProductService } from '../services/product.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,18 +13,18 @@ export class HomeComponent implements OnInit {
   loading: boolean = false;
   notLoading:boolean = false
 
-  constructor(private productService: ProductService, private homeService:HomeService,private router:Router) {}
+  constructor( private homeService:HomeService,private router:Router) {}
 
   ngOnInit(): void {
     this.getProducts();
-    this.loading = true;
-    this.notLoading = false;
+    this.loading = false;
+    this.notLoading = true;
   }
 
   private getProducts() {
-    this.productService.getProducts().subscribe((data) => {
+    this.homeService.getProducts().subscribe((data) => {
       this.homeproducts = data;
-      this.loading = true;
+      this.loading = false;
     },error => {
       console.log(error);
       this.notLoading = true;
