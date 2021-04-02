@@ -1,8 +1,7 @@
 package com.example.model;
 
-import java.io.Serializable;
 
-public class AuthenticationResponse implements Serializable{
+public class AuthenticationResponse {
 
     private boolean isAdmin;
     private boolean status;
@@ -13,22 +12,26 @@ public class AuthenticationResponse implements Serializable{
         this.status = status;
         this.isAdmin = isAdmin;
     }
-    public String getToken() {
-        return token;
-    }
 
+	public boolean getIsAdmin() {
+		return isAdmin;
+	}
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-    public void setAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-    public boolean isStatus() {
-        return status;
-    }
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
+	public boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
 
 }

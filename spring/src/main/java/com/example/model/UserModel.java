@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -32,13 +33,17 @@ public class UserModel {
 
     private String role;
 
-    @OneToOne
-    private CartModel cart ;
+    @OneToMany(mappedBy="userId",fetch=FetchType.LAZY)
+    private List<CartModel> cart ;
 
     @OneToMany(mappedBy="userModel")
     private List<OrderModel> ordersList;
 
-    public UserModel() {
+    public Long getUserId() {
+		return userId;
+	}
+
+	public UserModel() {
 
     }
 
@@ -51,7 +56,7 @@ public class UserModel {
         this.mobileNumber = mobileNumber;
         this.active = active;
         this.role = role;
-        this.cart = new CartModel();
+        this.cart = new ArrayList<CartModel>();
         this.ordersList = new ArrayList<OrderModel>();
     }
     public String getEmail() {
@@ -90,10 +95,10 @@ public class UserModel {
     public void setRole(String role) {
         this.role = role;
     }
-    public CartModel getCart() {
+    public List<CartModel> getCart() {
         return cart;
     }
-    public void setCart(CartModel cart) {
+    public void setCart(List<CartModel> cart) {
         this.cart = cart;
     }
     public List<OrderModel> getOrdersList() {

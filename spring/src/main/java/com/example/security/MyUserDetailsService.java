@@ -3,6 +3,7 @@ package com.example.security;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +18,6 @@ public class MyUserDetailsService implements UserDetailsService{
     @Autowired
     UserModelRepository userModelRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
         System.out.println("inside the myuserdetails service");
@@ -25,8 +25,9 @@ public class MyUserDetailsService implements UserDetailsService{
 
         userModel.orElseThrow(() -> new UsernameNotFoundException("Not Found: "+userName));
 
-        UserModel serModel = userModelRepository.findByEmail(userName).orElseThrow();
-        System.out.println(serModel.getEmail()+" " + serModel.getPassword());
+        System.out.println("inside myuserdetails service 2");
+//        UserModel serModel = userModelRepository.findByEmail(userName).orElseThrow();
+//        System.out.println(serModel.getEmail()+" " + serModel.getPassword());
         return userModel.map(MyUserDetails::new).get();
     }
 

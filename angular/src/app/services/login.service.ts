@@ -16,7 +16,7 @@ export class LoginService {
   }
 
   getUserStatus():Observable<UserToken>{
-    return this.httpClient.post<UserToken>(`${this.baseUrl}/userStatus`,true);
+    return this.httpClient.get<UserToken>(`${this.baseUrl}/userStatus`);
   }
 
   logout():Observable<Object>{

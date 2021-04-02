@@ -6,12 +6,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.UserModel;
 import com.example.repository.UserModelRepository;
-
 
 @CrossOrigin(origins = "http://localhost:8081")
 @RestController
@@ -35,7 +33,11 @@ public class SignupController {
             return false;
         }
         user.setActive(true);
-        user.setRole("user");
+        
+        if(user.getEmail().equals("admin") && user.getPassword().equals("admin"))
+        	user.setRole("admin");
+        else
+        	user.setRole("user");
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setPassword(String.valueOf(user.getPassword().hashCode()));
         userModelRepository.save(user);

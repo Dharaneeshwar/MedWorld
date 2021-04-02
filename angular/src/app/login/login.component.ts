@@ -17,8 +17,11 @@ export class LoginComponent implements OnInit {
     if (localStorage.getItem("token") !== null) {
       this.loginService.getUserStatus().subscribe(
         (data) => {
+          console.log(data);
+          
           if (data.status){
             if (data.isAdmin){
+              console.log("inside isadmin");
               this.goToAdmin();
             } else {
               this.goToHome();
@@ -66,6 +69,8 @@ export class LoginComponent implements OnInit {
   }
 
   private goToAdmin(){
+    console.log("inside gotoadmin");
+    
     this.router.navigateByUrl('/admin');
   }
 

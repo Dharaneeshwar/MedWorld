@@ -27,9 +27,14 @@ public class MyUserDetails implements UserDetails{
         this.password = userModel.getPassword();
         this.active = userModel.getActive();
         //System.out.println("User role in myuserdetails class is:" + userModel.getRole());
+//        this.authorities = Arrays.stream(userModel.getRole().split(","))
+//                .map(SimpleGrantedAuthority::new)
+//                .collect(Collectors.toList());
+        System.out.println("inside my user details"+userModel.getRole());
         this.authorities = Arrays.stream(userModel.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        
     }
 
 
