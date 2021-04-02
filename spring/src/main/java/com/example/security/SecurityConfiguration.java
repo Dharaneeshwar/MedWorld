@@ -1,8 +1,9 @@
 package com.example.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -12,10 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.filter.JwtRequestFilter;
 
-@Configuration
+
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
@@ -40,8 +44,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         .authorizeRequests()
         .antMatchers("/login").permitAll()
         .antMatchers("/signup","/userStatus").permitAll()
-        .antMatchers("/admin**","/admin/**").hasAnyAuthority("admin")
-        .antMatchers("/home","/cart","/saveOrder","/orders","/placeOrder").hasAnyAuthority("user")
+        .antMatchers("/admin","/admin/**").hasAnyAuthority("admin")
+        .antMatchers("/home**","/cart","/saveOrder","/orders","/placeOrder").hasAnyAuthority("user")
         .anyRequest().authenticated()
         .and().
         exceptionHandling().and().sessionManagement()
@@ -61,12 +65,27 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 //                exceptionHandling().and().sessionManagement()
 //                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-
+    	http.cors();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
 
 
     }
+    
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+    	System.out.println("inside corsconfigurationsource bean************************");
+    	CorsConfiguration c = new CorsConfiguration();
+    	c.setAllowedOrigins(Arrays.asList("*"));
+    	c.setAllowedMethods(Arrays.asList("*"));
+    	c.setAllowedHeaders(Arrays.asList("*"));
+    	c.setAllowCredentials(false);
+    	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    	source.registerCorsConfiguration("/**", c);
+    	
+    	return source;
+    }
+    
 
     @Bean
     public PasswordEncoder passwordEncoder() {

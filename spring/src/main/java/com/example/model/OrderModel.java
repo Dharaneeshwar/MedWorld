@@ -1,7 +1,15 @@
 package com.example.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+import org.springframework.stereotype.Component;
+@Component
 @Entity
 @Table(name = "Orders")
 public class OrderModel {
@@ -9,7 +17,7 @@ public class OrderModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     
-    @Column(name = "userId", nullable = false)
+    @Column(name = "userId")
     private Long userId;
 
     @Column(name = "productName")

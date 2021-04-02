@@ -19,7 +19,7 @@ public class MyUserDetails implements UserDetails{
     private String password;
     private String username;
     private Boolean active;
-    private List<GrantedAuthority> authorities;
+    private List<GrantedAuthority> authorityList;;
 
 
     public MyUserDetails(UserModel userModel) {
@@ -31,7 +31,7 @@ public class MyUserDetails implements UserDetails{
 //                .map(SimpleGrantedAuthority::new)
 //                .collect(Collectors.toList());
         System.out.println("inside my user details"+userModel.getRole());
-        this.authorities = Arrays.stream(userModel.getRole().split(","))
+        this.authorityList = Arrays.stream(userModel.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         
@@ -41,10 +41,10 @@ public class MyUserDetails implements UserDetails{
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
-        for(GrantedAuthority l: authorities) {
+        for(GrantedAuthority l: authorityList) {
             System.out.println("authoritiy:" + l);
         }
-        return authorities;
+        return authorityList;
     }
 
 
