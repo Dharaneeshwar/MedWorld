@@ -8,12 +8,11 @@ import { HomeService } from '../services/home.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit{
   allproducts: Product[] = [];
   homeproducts: Product[] = [];
   loading: boolean = false;
   notLoading: boolean = false;
-  showSplash!: boolean;
   searchKey: string="";
 
   constructor(
@@ -23,52 +22,46 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.getProducts();
-    // this.loading = true;
+    this.loading = true;
     this.notLoading = false;
-    this.showSplash = true;
   }
-  ngAfterViewInit(){
-    this.showSplash = true;
-    setTimeout( ()=>{
-          this.showSplash = false;
-        }, 2000)
-  }
+
   private getProducts() {
-    // this.homeService.getProducts().subscribe((data) => {
-    //   this.homeproducts = data;
-    //   this.allproducts = data;
-    //   this.loading = false;
-    // },error => {
-    //   console.log(error);
-    //   this.notLoading = true;
-    //   this.loading = false;
-    // }
-    // );
-    this.loading = false;
-    this.allproducts = [
-      {
-        'productId':'1',
-        'productName':'Paracetamol',
-        'description':'A tablet to cure headache and fever',
-        'price':'50',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      },{
-        'productId':'2',
-        'productName':'cetrizin',
-        'description':'A tablet to cure fever',
-        'price':'10',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      },{
-        'productId':'3',
-        'productName':'amoxy',
-        'description':'A tablet to cure headache',
-        'price':'20',
-        'quantity':'50',
-        'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
-      }
-    ]
+    this.homeService.getProducts().subscribe((data) => {
+      this.homeproducts = data;
+      this.allproducts = data;
+      this.loading = false;
+    },error => {
+      console.log(error);
+      this.notLoading = true;
+      this.loading = false;
+    }
+    );
+    // this.loading = false;
+    // this.allproducts = [
+    //   {
+    //     'productId':'1',
+    //     'productName':'Paracetamol',
+    //     'description':'A tablet to cure headache and fever',
+    //     'price':'50',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   },{
+    //     'productId':'2',
+    //     'productName':'cetrizin',
+    //     'description':'A tablet to cure fever',
+    //     'price':'10',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   },{
+    //     'productId':'3',
+    //     'productName':'amoxy',
+    //     'description':'A tablet to cure headache',
+    //     'price':'20',
+    //     'quantity':'50',
+    //     'imageUrl':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg'
+    //   }
+    // ]
     this.homeproducts = this.allproducts;
   }
 
