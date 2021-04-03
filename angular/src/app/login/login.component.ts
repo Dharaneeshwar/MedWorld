@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
               this.goToHome();
             }
           } else {
-            console.log("User Status not available");
+            localStorage.removeItem('token');
           }
         },
         (error) => {

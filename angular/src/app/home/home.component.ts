@@ -2,6 +2,7 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../model/product';
 import { HomeService } from '../services/home.service';
+import { LoginService } from '../services/login.service';
 
 @Component({
   selector: 'app-home',
@@ -17,10 +18,12 @@ export class HomeComponent implements OnInit{
 
   constructor(
     private homeService: HomeService,
-    private router: Router
+    private router: Router,
+    private loginService:LoginService
   ) {}
 
   ngOnInit(): void {
+    this.checkUser();
     this.getProducts();
     this.loading = true;
     this.notLoading = false;
@@ -33,6 +36,8 @@ export class HomeComponent implements OnInit{
       this.loading = false;
     },error => {
       console.log(error);
+      localStorage.removeItem('token');
+      this.router.navigateByUrl('login');
       this.notLoading = true;
       this.loading = false;
     }
@@ -93,6 +98,25 @@ export class HomeComponent implements OnInit{
       this.homeproducts = this.homeproducts.sort((i,j) => {
         return (i.price<j.price)? 1 : -1
       })
+    }
+  }
+  checkUser(){
+    if (localStorage.getItem("token") !== null) {
+      this.loginService.getUserStatus().subscribe(
+        (data) => {
+          console.log(data);
+          
+          if (data.status){
+            
+          } else {
+            localStorage.removeItem('token');
+            this.router.navigateByUrl('login');
+          }
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 }
