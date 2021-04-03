@@ -1,3 +1,32 @@
+/* Splash */
+
+.splash { 
+  background: #eb346b;
+   position: fixed;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+   z-index: 1090;
+   opacity: 1;
+}
+
+@keyframes splash-image-animation {
+  0%   {transform: scale(0.5);}
+  100% {transform: scale(1);}
+}
+
+.splash-image {
+  animation-name: splash-image-animation;
+  animation-duration: 1s;
+}
+
+/* General CSS */
 .product-content {
     height: 80px;
     overflow-y: auto;

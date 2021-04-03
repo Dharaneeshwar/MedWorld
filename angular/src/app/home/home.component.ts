@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../model/product';
 import { HomeService } from '../services/home.service';
-//import { ProductService } from '../services/product.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit {
   homeproducts: Product[] = [];
   loading: boolean = false;
-  notLoading:boolean = false
-
-  constructor( private homeService:HomeService,private router:Router) {}
+  notLoading: boolean = false;
+  showSplash!: boolean;
+  constructor(
+    private homeService: HomeService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.getProducts();
-    this.loading = false;
-    this.notLoading = true;
+    this.loading = true;
+    this.notLoading = false;
+    this.showSplash = true;
   }
-
+  ngAfterViewInit(){
+    this.showSplash = true;
+    setTimeout( ()=>{
+          this.showSplash = false;
+        }, 2000)
+  }
   private getProducts() {
     this.homeService.getProducts().subscribe((data) => {
       this.homeproducts = data;
@@ -57,14 +66,16 @@ export class HomeComponent implements OnInit {
     // ]
   }
 
-  addToCart(id:string,quantity:number){
-    this.homeService.addToCart(id,quantity).subscribe(data =>{
-      console.log("Added Successfully");
-      this.loading = false;
-    },error => console.log(error)
-    )
+  addToCart(id: string, quantity: number) {
+    this.homeService.addToCart(id, quantity).subscribe(
+      (data) => {
+        console.log('Added Successfully');
+        this.loading = false;
+      },
+      (error) => console.log(error)
+    );
   }
-  goToProduct(id:string){
-    this.router.navigateByUrl(`/product/${id}`)
+  goToProduct(id: string) {
+    this.router.navigateByUrl(`/product/${id}`);
   }
 }
