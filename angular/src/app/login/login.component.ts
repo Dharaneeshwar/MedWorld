@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from '../model/login';
 import { LoginService } from '../services/login.service';
@@ -8,12 +8,20 @@ import { LoginService } from '../services/login.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
   login: Login = new Login();
+  showSplash!: boolean;
 
   constructor(private loginService:LoginService,private router:Router) {}
 
+  ngAfterViewInit(){
+    setTimeout( ()=>{
+          this.showSplash = false;
+        }, 2000)
+  }
+
   ngOnInit(): void {
+    this.showSplash = true;
     if (localStorage.getItem("token") !== null) {
       this.loginService.getUserStatus().subscribe(
         (data) => {
