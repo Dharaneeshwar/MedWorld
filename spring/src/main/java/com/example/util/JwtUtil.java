@@ -1,19 +1,28 @@
 package com.example.util;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Function;
+import com.example.model.JwtModel;
+import com.example.repository.JwtRepository;
+
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 
 @Service
 public class JwtUtil {
 
+	@Autowired
+    JwtRepository jwtRepository;
+	
     private String SECRET_KEY = "secret";
 
     public String extractUsername(String token) {
@@ -49,6 +58,14 @@ public class JwtUtil {
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
+    	List<JwtModel> jwtModels = jwtRepository.findAll();
+    	for(JwtModel jwtModel: jwtModels) {
+    		
+    		if(token.equals(jwtModel.getToken())) {
+    			return false;
+    		}
+    	}
+    	
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }

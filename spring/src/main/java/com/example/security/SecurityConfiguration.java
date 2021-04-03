@@ -42,13 +42,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     	
     	http.csrf().disable()
         .authorizeRequests()
-        .antMatchers("/login").permitAll()
+        .antMatchers("/login","/logout").permitAll()
         .antMatchers("/signup","/userStatus").permitAll()
         .antMatchers("/admin","/admin/**").hasAnyAuthority("admin")
         .antMatchers("/home**","/cart","/saveOrder","/orders","/placeOrder").hasAnyAuthority("user")
-        .anyRequest().authenticated()
-        .and().
-        exceptionHandling().and().sessionManagement()
+//        .anyRequest().authenticated()
+        .and().formLogin().disable().logout().disable()
+        .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	
 
