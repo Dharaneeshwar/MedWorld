@@ -23,11 +23,10 @@ public class SignupController {
 
     @PostMapping("/signup")
     public boolean saveUser(@RequestBody UserModel user) {
-        System.out.println("inside signup");
+        System.out.println("inside signup "+user.getEmail());
         String email = user.getEmail();
-        UserModel userModel = userModelRepository.findByEmail(email)
-                .orElse(null);
-
+        UserModel userModel = userModelRepository.findByEmail(email).orElse(null);
+        //System.out.print(userModel.getUserId());
         if(userModel != null)
         {
             return false;
@@ -41,6 +40,7 @@ public class SignupController {
         //user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setPassword(String.valueOf(user.getPassword().hashCode()));
         userModelRepository.save(user);
+        System.out.println(true);
         return true;
 
     }

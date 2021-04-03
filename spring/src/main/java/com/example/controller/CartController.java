@@ -1,8 +1,11 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,7 +45,32 @@ public class CartController {
 	 
 	 @Autowired
 	 private CartRepository cartRepository;
-	 
+
+    @RequestMapping(value = "/home/{productId}", method = RequestMethod.GET)
+    ResponseEntity<?> checkProduct( @RequestHeader(value="Authorization") String authorizationHeader, @PathVariable Long productId) {
+        String jwt = authorizationHeader.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
+
+        ProductModel product = productRepository.findById(productId).orElse(null);
+        int quantity = 0;
+        boolean presentInCart = false;
+        List<CartModel>  cartModels = cartRepository.findAllByUserId(userModel);
+        for(CartModel c: cartModels) {
+            if(c.getProductId()==productId)
+			{
+				presentInCart = true;
+				quantity = Integer.parseInt(product.getQuantity());
+				break;
+			}
+        }
+		Map<String, Object> response = new HashMap<>();
+        response.put("presentInCart",presentInCart);
+        response.put("Quantity",quantity);
+		return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 	@RequestMapping(value = "/home/{id}", method = RequestMethod.POST)
 	ResponseEntity<CartModel> addToCart( @RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Quantity quantity, @PathVariable Long id) {
 		System.out.println("inside home/id id or qunatity is"+quantity.getQuantity());

@@ -23,6 +23,14 @@ public class ProductController {
     @Autowired
     private ProductRepository productRepository;
 
+    @GetMapping("/product/{productId}")
+    public ResponseEntity<ProductModel> productEditData(@PathVariable Long productId)
+    {
+        ProductModel product = productRepository.findById(productId).orElseThrow(
+                ()->new ResourceNotFoundException("Product Not yet Added!"));
+        return ResponseEntity.ok(product);
+    }
+
     @GetMapping("/admin")
     public List<ProductModel> getProduct() {
     	System.out.println("inside product controller");
@@ -44,7 +52,7 @@ public class ProductController {
     }
     
     @GetMapping("/admin/productEdit/{productId}")
-    public ResponseEntity<ProductModel> productEditData(@PathVariable Long productId)
+    public ResponseEntity<ProductModel> getProductDetails(@PathVariable Long productId)
     {
         ProductModel product = productRepository.findById(productId).orElseThrow(
                 ()->new ResourceNotFoundException("Product Not yet Added!"));

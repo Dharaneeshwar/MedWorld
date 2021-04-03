@@ -27,6 +27,7 @@ export class ProductpageComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+    /*
     this.product = {
       productId: '1',
       productName: 'Paracetamol',
@@ -35,7 +36,7 @@ export class ProductpageComponent implements OnInit {
       quantity: '50',
       imageUrl:
         'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
-    };
+    };*/
   }
 
   addToCart(id: string,source:string) {
