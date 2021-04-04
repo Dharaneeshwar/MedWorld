@@ -25,6 +25,7 @@ import com.example.security.MyUserDetailsService;
 import com.example.util.JwtUtil;
 
 @CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "https://8081-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io")
 @RestController
 public class LoginController {
     @Autowired
