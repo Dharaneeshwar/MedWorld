@@ -20,6 +20,7 @@ import com.example.util.JwtUtil;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:8081")
+//@CrossOrigin(origins = "https://8081-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io")
 @RestController
 public class OrderController {
 

@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class PaymentService {
 
-  private baseUrl = "http://localhost:8080"
+  private baseUrl = "http://localhost:8080";
+  //private baseUrl = "https://8080-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io";
   constructor(private httpClient:HttpClient) { }
 
   placeSingleProduct(obj:any){
