@@ -31,6 +31,12 @@ public class UserModel {
     private Boolean active;
 
     private String role;
+    
+    private String address;
+
+    private String country;
+
+    private String pinCode;
 
     @OneToMany(mappedBy="userId",fetch=FetchType.LAZY)
     private List<CartModel> cart ;
@@ -46,8 +52,7 @@ public class UserModel {
 
     }
 
-    public UserModel(String email, String password, String username, String mobileNumber, Boolean active, String role,
-                     CartModel cart, List<OrderModel> ordersList) {
+    public UserModel(String email, String password, String username, String mobileNumber, Boolean active, String role, String address, String country, String pinCode, List<CartModel> cart, List<OrderModel> ordersList) {
         super();
         this.email = email;
         this.password = password;
@@ -55,9 +60,13 @@ public class UserModel {
         this.mobileNumber = mobileNumber;
         this.active = active;
         this.role = role;
-        this.cart = new ArrayList<CartModel>();
-        this.ordersList = new ArrayList<OrderModel>();
+        this.address = address;
+        this.country = country;
+        this.pinCode = pinCode;
+        this.cart = cart;
+        this.ordersList = ordersList;
     }
+
     public String getEmail() {
         return email;
     }
@@ -107,5 +116,27 @@ public class UserModel {
         this.ordersList = ordersList;
     }
 
+    public String getAddress() {
+        return address;
+    }
 
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
 }

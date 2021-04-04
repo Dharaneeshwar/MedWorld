@@ -98,7 +98,7 @@ public class LoginController {
         if(userModel == null) {
         	return ResponseEntity.ok(new AuthenticationResponse(null, true,false));
         }
-        	
+        	System.out.print("isAdmin"+" "+userModel.getRole());
         boolean isAdmin = userModel.getRole().equals("admin");
     	return ResponseEntity.ok(new AuthenticationResponse(null, true,isAdmin));
     
