@@ -12,6 +12,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { UserOrderComponent } from './user-order/user-order.component';
 import { PaymentComponent } from './payment/payment.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
 
 const routes: Routes = [
   // ADMIN routes here
@@ -28,6 +29,7 @@ const routes: Routes = [
   {path:'cart',component:CartComponent},
   {path:'orders',component:UserOrderComponent},
   {path:'profile',component:ProfileComponent},
+  {path:'prescription/:payFor',component:PrescriptionComponent},
   {path:'product/:id',component:ProductpageComponent},
   {path:'payment',redirectTo: '/home', pathMatch:'full'},
   {path:'payment/:payFor',component:PaymentComponent}

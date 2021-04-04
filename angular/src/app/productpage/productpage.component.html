@@ -19,7 +19,7 @@
             <div class="d-flex justify-content-between px-5 mt-5">
                 <button *ngIf="!inCart" (click)="addToCart(product.productId,'btn')" class="btn btn-primary mr-2" style="width: 50%;">Add To Cart</button>
                 <button *ngIf="inCart" (click)="removeFromCart(product.productId)" class="btn btn-primary mr-2" style="width: 50%;">Remove From Cart</button>
-                <button (click)="goToPayment(product.productId)" class="btn btn-outline-primary ml-2" style="width: 50%;">Order directly</button>
+                <button (click)="goToPrescription()" class="btn btn-outline-primary ml-2" style="width: 50%;">Order directly</button>
             </div>
         </div>
     </div>

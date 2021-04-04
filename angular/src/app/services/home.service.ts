@@ -29,7 +29,7 @@ export class HomeService {
   }
 
   removeFromCart(id:string):Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/cart/delete`,{'id':id});
+    return this.httpClient.post(`${this.baseUrl}/cart/delete`,{'productId':id});
   }
 
 }

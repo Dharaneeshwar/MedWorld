@@ -15,13 +15,13 @@
     <tbody class="text-center">
       <tr *ngFor="let items of cartItems" class="my-row">
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.productName}}</td>
-        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price/items.quantity}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.quantity}}</td>
-        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.quantity*items.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price}}</td>
       </tr>
     </tbody>
   </table>
 </div>
-<button routerLink="/payment/c" class="btn btn-primary mt-5">Proceed to payment</button>
+<button routerLink="/prescription/c" class="btn btn-primary mt-5">Proceed to payment</button>
 </div>
 </div>
