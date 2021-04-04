@@ -12,7 +12,6 @@ import com.example.model.UserModel;
 import com.example.repository.UserModelRepository;
 
 @CrossOrigin(origins = "http://localhost:8081")
-//@CrossOrigin(origins = "https://8081-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io")
 @RestController
 public class SignupController {
 
