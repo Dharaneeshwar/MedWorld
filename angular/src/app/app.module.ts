@@ -23,6 +23,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ProductpageComponent } from './productpage/productpage.component';
 import { PaymentComponent } from './payment/payment.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,6 +43,7 @@ import { PaymentComponent } from './payment/payment.component';
     ProfileComponent,
     ProductpageComponent,
     PaymentComponent,
+    PrescriptionComponent,
   ],
   imports: [
     BrowserModule,

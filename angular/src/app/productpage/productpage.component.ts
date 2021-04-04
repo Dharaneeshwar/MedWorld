@@ -27,7 +27,16 @@ export class ProductpageComponent implements OnInit {
       },
       (error) => console.log(error)
     );
-    /*
+    this.homeService.getCartInfo(this.id).subscribe(data => {
+      this.quantity = data.quantity;
+      this.inCart = data.presentInCart;
+      console.log(data);
+      
+    },error => {
+      console.log(error);
+      this.quantity = 1;
+    })  
+    
     this.product = {
       productId: '1',
       productName: 'Paracetamol',
@@ -36,7 +45,7 @@ export class ProductpageComponent implements OnInit {
       quantity: '50',
       imageUrl:
         'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
-    };*/
+    };
   }
 
   addToCart(id: string,source:string) {
@@ -64,7 +73,8 @@ export class ProductpageComponent implements OnInit {
     );
   }
 
-  goToPayment(id: string) {
-    this.router.navigateByUrl('/payment/p-' + id);
+  goToPrescription() {
+    // this.router.navigateByUrl('/prescription/p-' + this.product.productId);
+    this.router.navigate(['prescription','p-'+this.product.productId],{ queryParams: {'quantity':this.quantity}});
   }
 }

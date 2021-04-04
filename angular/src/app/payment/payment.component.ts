@@ -26,28 +26,40 @@ export class PaymentComponent implements OnInit {
   ) {
     this._window = this.winRef.nativeWindow;
   }
-
-  payingAmount: number = 1; // in INR
+  quantity: number = 1;
+  payingAmount: number = -1; // in INR
   orderType!: string; // cart/prod - (1)
   prodId: string = 'null'; // if single product
 
   ngOnInit(): void {
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.quantity = params['quantity'];
+    });
     let payfor = this.activatedRoute.snapshot.params['payFor'];
     if (payfor.charAt(0) == 'c') {
       this.orderType = 'cart';
       this.cartService.getTotal().subscribe((data) => {
-        this.payingAmount = data.amount ? data.amount : 0;
+        this.payingAmount = data.amount ? data.amount : 1;
+        console.log("data ",data);
+        
       });
     } else {
       this.orderType = 'prod';
       this.prodId = payfor.slice(2);
-      this.homeService.getProduct(this.prodId).subscribe((data) => {
-        this.payingAmount = parseInt(data.price);
-      });
+      this.homeService.getProduct(this.prodId).subscribe(
+        (data) => {
+          this.payingAmount = +data.price * this.quantity;
+          console.log(this.payingAmount);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
     }
   }
 
   placeOrderPay() {
+    this.options.amount = this.payingAmount * 100;
     this.initPay();
   }
 
@@ -55,7 +67,7 @@ export class PaymentComponent implements OnInit {
     key: 'rzp_test_a077YCXUMKCSsT', // add razorpay key here
     description: 'Test Payment',
     image: 'https://images.app.goo.gl/JbgS3sKAqQy7pvKY6',
-    amount: this.payingAmount * 100, // razorpay takes amount in paisa
+    amount: 100, // razorpay takes amount in paisa
     currency: 'INR',
     notes: {
       address: 'Razorpay Corporate Office',
@@ -91,6 +103,7 @@ export class PaymentComponent implements OnInit {
         paymentType: 'paid',
         totalPayAmt: this.payingAmount,
         razorPay: this.paymentId,
+        orderId:localStorage.getItem('current_order')
       };
       this.paymentServices.placeCartProducts(obj).subscribe(
         (data) => {
@@ -107,7 +120,9 @@ export class PaymentComponent implements OnInit {
         paymentType: 'paid',
         totalPayAmt: this.payingAmount,
         razorPay: this.paymentId,
+        orderId:localStorage.getItem('current_order')
       };
+      localStorage.removeItem('current_order');
       this.paymentServices.placeSingleProduct(obj).subscribe(
         (data) => {
           if (data) {
@@ -119,13 +134,14 @@ export class PaymentComponent implements OnInit {
     }
   }
 
-  placeOrderCOD(){
+  placeOrderCOD() {
     var obj!: any;
     if (this.orderType == 'cart') {
       obj = {
         orderType: this.orderType,
         paymentType: 'COD',
         totalPayAmt: this.payingAmount,
+        orderId:localStorage.getItem('current_order')
       };
       this.paymentServices.placeCartProducts(obj).subscribe(
         (data) => {
@@ -141,7 +157,9 @@ export class PaymentComponent implements OnInit {
         prodId: this.prodId,
         paymentType: 'COD',
         totalPayAmt: this.payingAmount,
+        orderId:localStorage.getItem('current_order')
       };
+      localStorage.removeItem('current_order');
       this.paymentServices.placeSingleProduct(obj).subscribe(
         (data) => {
           if (data) {

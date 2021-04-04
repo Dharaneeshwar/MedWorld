@@ -1,0 +1,68 @@
+<app-user-nav></app-user-nav>
+<div class="container center-y">
+  <div class="row align-items-center pt-5">
+    <div class="d-none d-md-block col-lg-5 order-lg-1">
+      <div class=" mt-3">
+        <h5 class="text-center text-sm-left  mt-5" style="font-family: 'Patua One', cursive;">Order Info</h5>
+        <div class="row mt-3">
+          <div class="col-11">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item"><b>Username:</b><a class="text-dark ml-2">@{{userName}}</a></li>
+              <li class="list-group-item"><b>Bill Amount:</b><span class="text-dark ml-2">₹{{payingAmount}}</span></li>
+              <li class="list-group-item"><b>Phone Number:</b><span class="text-dark ml-2">{{mobileNumber}}</span></li>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <h5 class="text-center text-sm-left  mt-3" style="font-family: 'Patua One', cursive;">Products</h5>
+        <table class="table mt-3">
+          <thead>
+            <tr class="table-primary">
+              <th style="text-align:center">Product ID</th>
+              <th style="text-align:center">Product</th>
+              <th style="text-align:center">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let items of cartItems" class="my-row">
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.productId}}</td>
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.productName}}</td>
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{+items.price}}</td>
+            </tr>
+            <tr *ngIf="orderType == 'prod'">
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{singleProduct.productId}}</td>
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{singleProduct.productName}}</td>
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{+singleProduct.price}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Address -->
+        <!-- <form>
+          <div class="form-group mt-4 mx-3">
+            <div class="d-flex justify-content-between">
+              <label for="Address"><b>Delivery Address</b> <span *ngIf="editAddress" class="ml-2">(Editable)</span></label>
+              <a (click)="toggleAddressEdit()" class="mr-2 click">Edit</a>
+            </div>
+            <textarea *ngIf="!editAddress" class="form-control" id="Address" rows="4" disabled></textarea>
+            <textarea *ngIf="editAddress" class="form-control" id="Address" rows="4"></textarea>
+          </div>
+        </form> -->
+      </div>
+    </div>
+    <div class="py-3 col-lg-7 order-lg-2 y-center">
+      <img class="rounded d-block mx-auto mt-5" src="../../assets/imgUpload.svg" alt="" height="280vh" srcset="">
+      <h5 class="text-center text-sm-left  mt-5" style="font-family: 'Patua One', cursive;">Upload Prescription</h5>
+      <p *ngIf="filename !== 'null'" class="my-2">FileName: <span class="text-muted">({{filename}})</span></p>
+      <div class="custom-file">
+        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="imgFile">
+        <label class="custom-file-label" for="imgFile">Choose file</label>
+      </div>
+      <p class="text-danger mt-2 ml-1">{{message}}</p>
+      <button *ngIf="filename == 'null'" class="btn btn-primary mt-5 d-block ml-auto" disabled>Upload Image and Proceed
+        to Payment</button>
+      <button *ngIf="filename !== 'null'" (click)="goToPayment(payfor)"
+        class="btn btn-primary mt-5 d-block ml-auto">Upload Image and Proceed to Payment</button>
+    </div>
+  </div>
+</div>

@@ -62,13 +62,13 @@ public class CartController {
             if(c.getProductId()==productId)
 			{
 				presentInCart = true;
-				quantity = Integer.parseInt(product.getQuantity());
+				quantity = c.getQuantity();
 				break;
 			}
         }
 		Map<String, Object> response = new HashMap<>();
         response.put("presentInCart",presentInCart);
-        response.put("Quantity",quantity);
+        response.put("quantity",quantity);
 		return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -117,6 +117,7 @@ public class CartController {
         
         	for(CartModel c: cartModels) {
         		c.setUserId(null);
+        		System.out.println("price"+c.getPrice());
         	}
 		return ResponseEntity.ok(cartModels);
 	}
