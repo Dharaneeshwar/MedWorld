@@ -18,8 +18,8 @@ public class SignupController {
     @Autowired
     private UserModelRepository userModelRepository;
 
-    //@Autowired
-    //private BCryptPasswordEncoder passwordEncoder;
+   @Autowired
+   BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @PostMapping("/signup")
     public boolean saveUser(@RequestBody UserModel user) {
@@ -37,8 +37,9 @@ public class SignupController {
         	user.setRole("admin");
         else
         	user.setRole("user");
-        //user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setPassword(String.valueOf(user.getPassword().hashCode()));
+        
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        //user.setPassword(String.valueOf(user.getPassword().hashCode()));
         userModelRepository.save(user);
         System.out.println(true);
         return true;

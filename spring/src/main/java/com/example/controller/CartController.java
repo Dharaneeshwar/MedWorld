@@ -73,7 +73,6 @@ public class CartController {
 
 	@RequestMapping(value = "/home/{id}", method = RequestMethod.POST)
 	ResponseEntity<CartModel> addToCart( @RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Quantity quantity, @PathVariable Long id) {
-		System.out.println("inside home/id id or qunatity is"+quantity.getQuantity());
 		String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -81,9 +80,7 @@ public class CartController {
         
 		ProductModel product = productRepository.findById(id).orElse(null);
 		String productName = product.getProductName();
-		System.out.println("inside /home/  error" );
 		List<CartModel>  cartModels = cartRepository.findAllByUserId(userModel);
-		System.out.println("inside /home/  error 2" );
 		for(CartModel c: cartModels) {
 			if(c.getProductId() == product.getProductId()) {
 				c.setQuantity((int)quantity.getQuantity());

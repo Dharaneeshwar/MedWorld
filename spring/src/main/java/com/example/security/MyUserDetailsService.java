@@ -23,9 +23,9 @@ public class MyUserDetailsService implements UserDetailsService{
         System.out.println("inside the myuserdetails service");
         Optional<UserModel> userModel = userModelRepository.findByEmail(userName);
 
-        userModel.orElseThrow(() -> new UsernameNotFoundException("Not Found: "+userName));
-
-        System.out.println("inside myuserdetails service 2");
+        UserModel u = userModel.orElse(null);
+        
+        System.out.println("inside myuserdetails service 2"+u.getPassword());
 //        UserModel serModel = userModelRepository.findByEmail(userName).orElseThrow();
 //        System.out.println(serModel.getEmail()+" " + serModel.getPassword());
         return userModel.map(MyUserDetails::new).get();

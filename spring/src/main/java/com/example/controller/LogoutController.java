@@ -2,6 +2,7 @@ package com.example.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.model.JwtModel;
+import com.example.model.UserModel;
 import com.example.repository.JwtRepository;
 import com.example.repository.UserModelRepository;
 import com.example.util.JwtUtil;
@@ -32,7 +34,7 @@ public class LogoutController {
 
         try {
         	String jwt = authorizationHeader.substring(7);
-        	
+            
             JwtModel jwtModel = new JwtModel(jwt);
             System.out.println("inside logout 2");
             jwtRepository.save(jwtModel);

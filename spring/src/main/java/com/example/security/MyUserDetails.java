@@ -21,7 +21,6 @@ public class MyUserDetails implements UserDetails{
     private Boolean active;
     private List<GrantedAuthority> authorityList;;
 
-
     public MyUserDetails(UserModel userModel) {
         this.username = userModel.getEmail();
         this.password = userModel.getPassword();
@@ -34,7 +33,7 @@ public class MyUserDetails implements UserDetails{
         this.authorityList = Arrays.stream(userModel.getRole().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-        
+        System.out.println("inside my user details 2");
     }
 
 
@@ -51,6 +50,7 @@ public class MyUserDetails implements UserDetails{
     @Override
     public String getPassword() {
         // TODO Auto-generated method stub
+    	System.out.println("inside myuserdetails get password");
         return password;
     }
 

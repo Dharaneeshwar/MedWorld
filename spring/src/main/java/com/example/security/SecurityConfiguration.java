@@ -5,21 +5,24 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Service;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.filter.JwtRequestFilter;
 
-
+@Service
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
@@ -32,8 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(myUserDetailsService);
-
+        auth.userDetailsService(myUserDetailsService);      
     }
 
     @Override
@@ -42,12 +44,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     	
     	http.csrf().disable()
         .authorizeRequests()
-        .antMatchers("/login","/logout").permitAll()
+        .antMatchers("/login").permitAll()
         .antMatchers("/signup","/userStatus").permitAll()
+        .antMatchers("/logout").hasAnyAuthority("admin","user")
         .antMatchers("/admin","/admin/**").hasAnyAuthority("admin")
         .antMatchers("/home**","/cart","/saveOrder","/orders","/placeOrder").hasAnyAuthority("user")
 //        .anyRequest().authenticated()
-        .and().formLogin().disable().logout().disable()
+        .and()//.formLogin().disable().logout().disable()
         .sessionManagement()
         .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     	
@@ -87,9 +90,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     }
     
 
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        //return  NoOpPasswordEncoder.getInstance();
+//    	return new BCryptPasswordEncoder();
+//    }
+//    
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return  NoOpPasswordEncoder.getInstance();
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        //return  NoOpPasswordEncoder.getInstance();
+    	return new BCryptPasswordEncoder();
     }
 
     @Override
@@ -98,7 +108,15 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         return super.authenticationManagerBean();
     }
 
-
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+    	DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+    	
+    	provider.setUserDetailsService(userDetailsService());
+    	provider.setPasswordEncoder(bCryptPasswordEncoder());
+    	
+    	return provider;
+    }
     
 
 
