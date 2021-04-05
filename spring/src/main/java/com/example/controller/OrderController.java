@@ -110,7 +110,7 @@ public class OrderController {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
         OrderListModel orderListModel = new OrderListModel();
-        orderListModel.setAccepted(false);
+        orderListModel.setStatus(new Long(0));
         orderListModel.setMobileNumber(userModel.getMobileNumber());
         orderListModel.setUsername(userModel.getUsername());
         if(paramData.get("orderType").equals("prod"))

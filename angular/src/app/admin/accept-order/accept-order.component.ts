@@ -33,9 +33,9 @@ export class AcceptOrderComponent implements OnInit {
       'paymentId':'12345',
       'prescriptionImage':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
       'status':0,
-      'totalAmount':100,
+      'totalPrice':100,
       'userId':'0',
-      'userName':'daranip'
+      'username':'daranip'
     };
   }
 

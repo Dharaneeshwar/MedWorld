@@ -7,7 +7,7 @@ export class OrderList {
     username:string = "";
     mobileNumber:string = "";
     prescriptionImage:any;
-    accepted:boolean = false;
+    status:number = -1;
     totalPrice!:number;
 }
 

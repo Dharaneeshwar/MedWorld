@@ -15,18 +15,18 @@ export class OrdergroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrderList();
-    this.orders = [
-      {
-        'orderId':1,
-        'paymentId':'pay-345233',
-        'userId':'1',
-        'userName':'daranip',
-        'mobileNumber':'1234567890',
-        'prescriptionImage':"https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg",
-        'totalAmount':120,
-        'status':1
-      }
-    ]
+    // this.orders = [
+    //   {
+    //     'orderId':1,
+    //     'paymentId':'pay-345233',
+    //     'userId':'1',
+    //     'username':'daranip',
+    //     'mobileNumber':'1234567890',
+    //     'prescriptionImage':"https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg",
+    //     'totalPrice':120,
+    //     'status':1
+    //   }
+    // ]
   }
 
   getOrderList() {

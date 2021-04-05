@@ -26,21 +26,21 @@ public class OrderListModel {
     @Column(name="prescriptionImage",length=1000)
     private byte[] prescriptionImage;
 
-    private boolean accepted;
+    private Long status;
 
     private Long totalPrice;
 
     public OrderListModel() {
     }
 
-    public OrderListModel(String paymentId, Long userId, String username, String mobileNumber, String type, byte[] prescriptionImage, boolean accepted, Long totalPrice) {
+    public OrderListModel(String paymentId, Long userId, String username, String mobileNumber, String type, byte[] prescriptionImage, Long status, Long totalPrice) {
         this.paymentId = paymentId;
         this.userId = userId;
         this.username = username;
         this.mobileNumber = mobileNumber;
         this.type = type;
         this.prescriptionImage = prescriptionImage;
-        this.accepted = accepted;
+        this.status = status;
         this.totalPrice = totalPrice;
     }
 
@@ -96,12 +96,12 @@ public class OrderListModel {
         this.prescriptionImage = prescriptionImage;
     }
 
-    public boolean isAccepted() {
-        return accepted;
+    public Long getStatus() {
+        return status;
     }
 
-    public void setAccepted(boolean accepted) {
-        this.accepted = accepted;
+    public void setStatus(Long status) {
+        this.status = status;
     }
 
     public Long getTotalPrice() {
