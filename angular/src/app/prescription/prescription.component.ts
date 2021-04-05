@@ -22,7 +22,7 @@ export class PrescriptionComponent implements OnInit {
 
   // Fill Page with info
   cartItems: CartProduct[] = [];
-  singleProduct:Product = new Product();
+  singleProduct: Product = new Product();
   // Image upload
   filename: string = 'null';
   selectedFile!: File;
@@ -30,26 +30,26 @@ export class PrescriptionComponent implements OnInit {
   base64Data: any;
   retrieveResonse: any;
   message: string = '';
-  quantity:number = 1;
-  // Top Table 
-  username:string = ""; 
+  quantity: number = 1;
+  // Top Table
+  username: string = '';
   payingAmount!: number; // in INR
-  mobileNumber:string = "";
-  
+  mobileNumber: string = '';
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private homeService: HomeService,
     private httpClient: HttpClient,
-    private cartService:CartService,
-    private orderService:OrderService
+    private cartService: CartService,
+    private orderService: OrderService
   ) {}
 
   ngOnInit(): void {
     this.payfor = this.activatedRoute.snapshot.params['payFor'];
-    this.activatedRoute.queryParams.subscribe(params => {
+    this.activatedRoute.queryParams.subscribe((params) => {
       this.quantity = params['quantity'];
-  });
+    });
     if (this.payfor.charAt(0) == 'c') {
       this.orderType = 'cart';
     } else {
@@ -60,27 +60,29 @@ export class PrescriptionComponent implements OnInit {
     this.getProducts();
     this.initOrder();
   }
-  
-  initOrder(){
-    this.orderService.initOrders({'orderType':this.orderType,'prodId':this.prodId}).subscribe(data => {
-      this.username = data.username;
-      this.payingAmount = data.totalPrice;
-      this.mobileNumber = data.mobileNumber; 
-      console.log(data);
-      localStorage.setItem('current_order',data.orderId.toString());
-    })
+
+  initOrder() {
+    this.orderService
+      .initOrders({ orderType: this.orderType, prodId: this.prodId })
+      .subscribe((data) => {
+        this.username = data.username;
+        this.payingAmount = data.totalPrice;
+        this.mobileNumber = data.mobileNumber;
+        console.log(data);
+        localStorage.setItem('current_order', data.orderId.toString());
+      });
   }
 
   getProducts() {
-    if (this.orderType == 'cart'){
-      this.cartService.getCartItems().subscribe(data => {
+    if (this.orderType == 'cart') {
+      this.cartService.getCartItems().subscribe((data) => {
         console.log(data);
         this.cartItems = data;
-      })
+      });
     } else {
       this.homeService.getProduct(this.prodId).subscribe((data) => {
         this.singleProduct = data;
-      })
+      });
     }
   }
 
@@ -90,31 +92,26 @@ export class PrescriptionComponent implements OnInit {
 
   onFileChanged(event: any) {
     this.selectedFile = event.target.files[0];
-    console.log("file changed");
+    console.log('file changed');
     this.filename = this.selectedFile.name;
   }
 
   goToPayment(goTo: string) {
     const uploadImageData = new FormData();
-    uploadImageData.append("image", //localStorage.getItem('current_order')+"",
+    uploadImageData.append(
+      'image', //localStorage.getItem('current_order')+"",
       this.selectedFile,
-      localStorage.getItem('current_order')+'`'+this.selectedFile.name
+      localStorage.getItem('current_order') + '`' + this.selectedFile.name
     );
 
-
-    this.httpClient.post('http://localhost:8080/prescription/upload', uploadImageData, {
-        observe: 'response',
-      }).subscribe((response) => {
-        if (response.status === 200) {
-          this.message = 'Image uploaded successfully';
-          console.log("uploaded");
-          this.router.navigateByUrl(`payment/${this.payfor}`);
-        } else {
-          this.message = 'Image not uploaded successfully';
-        }
+    this.httpClient
+      .post('http://localhost:8080/prescription/upload', uploadImageData)
+      .subscribe((data) => {
+        this.router.navigateByUrl(`payment/${this.payfor}`);
       });
-      this.router.navigate(['payment',this.payfor],{ queryParams: {'quantity':this.quantity}});
-
+    this.router.navigate(['payment', this.payfor], {
+      queryParams: { quantity: this.quantity },
+    });
   }
 
   // getImage() {

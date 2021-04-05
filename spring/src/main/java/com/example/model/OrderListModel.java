@@ -23,7 +23,7 @@ public class OrderListModel {
 
     private String type;
 
-    @Column(name="prescriptionImage",length=1000)
+    @Column(name="prescriptionImage",length=10000)
     private byte[] prescriptionImage;
 
     private Long status;
@@ -62,6 +62,10 @@ public class OrderListModel {
 
     public Long getUserId() {
         return userId;
+    }
+    
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUsername() {

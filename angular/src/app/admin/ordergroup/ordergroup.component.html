@@ -15,7 +15,7 @@
                 <td class="align-middle">{{order.paymentId}}</td>
                 <td class="align-middle">{{order.userId}}</td>
                 <td class="align-middle"><img src="{{order.prescriptionImage}}" width="100rem" alt="" srcset=""></td>
-                <td class="align-middle">{{order.totalAmount}}</td>
+                <td class="align-middle">{{order.totalPrice}}</td>
                 <td class="align-middle">
                     <b *ngIf="order.status == 1" class="text-success">Accepted</b>
                     <b *ngIf="order.status == 2" class="text-danger">Rejected</b>

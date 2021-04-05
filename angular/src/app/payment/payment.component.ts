@@ -39,6 +39,7 @@ export class PaymentComponent implements OnInit {
     if (payfor.charAt(0) == 'c') {
       this.orderType = 'cart';
       this.cartService.getTotal().subscribe((data) => {
+        
         this.payingAmount = data.amount ? data.amount : 1;
         console.log("data ",data);
         

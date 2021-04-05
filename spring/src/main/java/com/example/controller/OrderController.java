@@ -66,19 +66,27 @@ public class OrderController {
     }
     
     @PostMapping("/saveOrder")
-    public List<OrderModel> saveProduct(@RequestHeader(value="Authorization") String authorizationHeader) {
+    public List<OrderModel> saveProduct(@RequestHeader(value="Authorization") String authorizationHeader,@RequestBody Map<String,String> data) {
 		String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);   
         List<CartModel>  cartModels = cartRepository.findAllByUserId(userModel);
         System.out.println("inside /saveorder");
+        OrderListModel orderListModel = orderListRepository.findByOrderId(Long.parseLong(data.get("orderId"))).orElse(null);
+        if (data.get("paymentType").equals("paid")) {
+        	orderListModel.setPaymentId(data.get("razorPay"));
+        } else {
+        	long millis = 1556175797428L;
+            Date date =new Date();
+            millis = date.getTime();
+        	orderListModel.setPaymentId("COD"+String.valueOf(millis));
+        }
         for(CartModel c: cartModels) {
-        	
         	orderModel.setPrice(c.getPrice());
         	orderModel.setProductName(c.getProductName());
         	orderModel.setQuantity(c.getQuantity());
-        	orderModel.setStatus("not placed");
+        	orderModel.setStatus("placed");
         	orderModel.setUserId(userModel.getUserId());
         	orderModel.setTotalPrice(String.valueOf(Integer.parseInt(c.getPrice())*c.getQuantity()));
         	orderRepository.save(orderModel);
@@ -113,6 +121,7 @@ public class OrderController {
         orderListModel.setStatus(new Long(0));
         orderListModel.setMobileNumber(userModel.getMobileNumber());
         orderListModel.setUsername(userModel.getUsername());
+        orderListModel.setUserId(Long.valueOf(userModel.getUserId()));
         if(paramData.get("orderType").equals("prod"))
         {
             orderListModel.setTotalPrice(Long.parseLong(productRepository.findById(Long.parseLong(paramData.get("prodId"))).orElseThrow().getPrice()));
@@ -135,7 +144,7 @@ public class OrderController {
     }
 
     @PostMapping("/prescription/upload")
-    public BodyBuilder uploadPrescription(@RequestParam("image") MultipartFile file) throws IOException {
+    public ResponseEntity<?> uploadPrescription(@RequestParam("image") MultipartFile file) throws IOException {
 //        String jwt = authorizationHeader.substring(7);
 //        String username = jwtUtil.extractUsername(jwt);
 //        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -156,7 +165,7 @@ public class OrderController {
         System.out.println("Original Image FileNAme - " + file.getOriginalFilename().split("`")[1]);
         System.out.println("Original Image Content Type - " + file.getContentType());
         System.out.println("Compressed Image Byte Size - " + compressBytes(file.getBytes()));
-        return ResponseEntity.status(HttpStatus.OK);
+        return ResponseEntity.ok(true);
     }
     public static byte[] compressBytes(byte[] data) {
         Deflater deflater = new Deflater();
@@ -175,5 +184,6 @@ public class OrderController {
         System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
+    
 
 }

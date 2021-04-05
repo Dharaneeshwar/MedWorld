@@ -16,6 +16,6 @@ export class PaymentService {
   }
   placeCartProducts(obj:any){
     console.log("cart");
-    return this.httpClient.post(`${this.baseUrl}/orders`,obj)
+    return this.httpClient.post(`${this.baseUrl}/saveOrder`,obj)
   }
 }
