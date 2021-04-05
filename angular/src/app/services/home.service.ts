@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CartProduct } from '../model/Cart';
 import { Product } from '../model/product';
+import { UserOrder } from '../model/UserOrder';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,6 @@ export class HomeService {
     return this.httpClient.get<Product[]>(`${this.baseUrl}/home`);
   }
 
-
   addToCart(id:string,quantity:number):Observable<CartProduct>{
     return this.httpClient.post<CartProduct>(`${this.baseUrl}/home/${id}`,{'id':id,'quantity':quantity});
   }
@@ -32,4 +32,7 @@ export class HomeService {
     return this.httpClient.post(`${this.baseUrl}/cart/delete`,{'productId':id});
   }
 
+  getRecentBuys():Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${this.baseUrl}/getRecentBuys`);
+  }
 }

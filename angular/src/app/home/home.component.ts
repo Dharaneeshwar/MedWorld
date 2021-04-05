@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Product } from '../model/product';
+import { UserOrder } from '../model/UserOrder';
 import { HomeService } from '../services/home.service';
 import { LoginService } from '../services/login.service';
 
@@ -9,38 +10,59 @@ import { LoginService } from '../services/login.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   allproducts: Product[] = [];
   homeproducts: Product[] = [];
+  recentBuys: Product[] = [];
   loading: boolean = false;
   notLoading: boolean = false;
-  searchKey: string="";
+  searchKey: string = '';
+  showRecentTitle: boolean = true;
 
   constructor(
     private homeService: HomeService,
     private router: Router,
-    private loginService:LoginService
+    private loginService: LoginService
   ) {}
 
   ngOnInit(): void {
     this.checkUser();
     this.getProducts();
+    this.getRecentBuys();
     this.loading = true;
     this.notLoading = false;
   }
 
+  private getRecentBuys() {
+    this.homeService.getRecentBuys().subscribe(
+      (data) => {
+        this.recentBuys = data;
+        if (this.recentBuys.length == 0) {
+          this.showRecentTitle = false;
+        }
+      },
+      (error) => {
+        console.log(error);
+        if (this.recentBuys.length == 0) {
+          this.showRecentTitle = false;
+        }
+      }
+    );
+  }
   private getProducts() {
-    this.homeService.getProducts().subscribe((data) => {
-      this.homeproducts = data;
-      this.allproducts = data;
-      this.loading = false;
-    },error => {
-      console.log(error);
-      localStorage.removeItem('token');
-      this.router.navigateByUrl('login');
-      this.notLoading = true;
-      this.loading = false;
-    }
+    this.homeService.getProducts().subscribe(
+      (data) => {
+        this.homeproducts = data;
+        this.allproducts = data;
+        this.loading = false;
+      },
+      (error) => {
+        console.log(error);
+        localStorage.removeItem('token');
+        this.router.navigateByUrl('login');
+        this.notLoading = true;
+        this.loading = false;
+      }
     );
     // this.loading = false;
     // this.allproducts = [
@@ -83,31 +105,35 @@ export class HomeComponent implements OnInit{
     this.router.navigateByUrl(`/product/${id}`);
   }
 
-  filterProducts(){
+  filterProducts() {
     this.homeproducts = this.allproducts.filter((data) => {
-      return data.productName.toUpperCase().indexOf(this.searchKey.toUpperCase()) > -1 || data.description.toUpperCase().indexOf(this.searchKey.toUpperCase()) > -1 ;
-    })
+      return (
+        data.productName.toUpperCase().indexOf(this.searchKey.toUpperCase()) >
+          -1 ||
+        data.description.toUpperCase().indexOf(this.searchKey.toUpperCase()) >
+          -1
+      );
+    });
   }
 
-  choseSortCondition(sortCondition:string){
-    if (sortCondition == "plh"){
-      this.homeproducts = this.homeproducts.sort((i,j) => {
-        return (i.price>j.price)? 1 : -1
-      })
-    } else if (sortCondition == "phl") {
-      this.homeproducts = this.homeproducts.sort((i,j) => {
-        return (i.price<j.price)? 1 : -1
-      })
+  choseSortCondition(sortCondition: string) {
+    if (sortCondition == 'plh') {
+      this.homeproducts = this.homeproducts.sort((i, j) => {
+        return i.price > j.price ? 1 : -1;
+      });
+    } else if (sortCondition == 'phl') {
+      this.homeproducts = this.homeproducts.sort((i, j) => {
+        return i.price < j.price ? 1 : -1;
+      });
     }
   }
-  checkUser(){
-    if (localStorage.getItem("token") !== null) {
+  checkUser() {
+    if (localStorage.getItem('token') !== null) {
       this.loginService.getUserStatus().subscribe(
         (data) => {
           console.log(data);
-          
-          if (data.status){
-            
+
+          if (data.status) {
           } else {
             localStorage.removeItem('token');
             this.router.navigateByUrl('login');
