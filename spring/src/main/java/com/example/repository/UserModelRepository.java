@@ -9,7 +9,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.example.model.UserModel;
-import com.example.model.ProfileDetails;
 import javax.transaction.Transactional;
 
 @Repository
@@ -17,7 +16,4 @@ import javax.transaction.Transactional;
 public interface UserModelRepository extends JpaRepository<UserModel,Long>{
     Optional<UserModel> findByUsername(String username);
     Optional<UserModel> findByEmail(String email);
-
-    @Query(value = "SELECT new ProfileDetaild(u.username,u.email,u.mobile_number,u.address,u.country,u.pin_code FROM User u WHERE u.email =:email", nativeQuery = true)
-    public Optional<ProfileDetails> findUserDetails(@Param("email") String email);
 }

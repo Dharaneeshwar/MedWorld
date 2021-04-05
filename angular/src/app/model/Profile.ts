@@ -1,9 +1,9 @@
 export class UserDetails{
     username = '' ; 
     country = '' ; 
-    pincode = '';
+    pinCode = '';
     address = '';
-    emailid = ''; 
-    phoneNumber = ''; 
+    email = ''; 
+    mobileNumber = ''; 
     status !: string ; 
 }

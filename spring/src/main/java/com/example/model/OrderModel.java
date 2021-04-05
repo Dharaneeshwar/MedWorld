@@ -9,12 +9,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
+
+import java.util.Date;
+
 @Component
 @Entity
 @Table(name = "Orders")
 public class OrderModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
+
     private Long orderId;
     
     @Column(name = "userId")
@@ -40,7 +46,10 @@ public class OrderModel {
 
     public OrderModel()
     {
-
+        long millis = 1556175797428L;
+        Date date =new Date();
+        millis = date.getTime();
+        this.setOrderId(millis);
     }
 
     public OrderModel(Long userId, String productName, String totalPrice, String status, int quantity, String price) {

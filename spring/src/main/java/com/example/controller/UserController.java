@@ -29,17 +29,31 @@ public class UserController {
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
-        ProfileDetails profileDetails = userModelRepository.findUserDetails(username).orElse(null);
+//        System.out.println(userModel.getUsername());
+//        System.out.println(userModel.getEmail());
+//        System.out.println(userModel.getMobileNumber());
+//        System.out.println(userModel.getAddress());
+//        System.out.println(userModel.getCountry());
+//        System.out.println(userModel.getPinCode());
+        ProfileDetails profileDetails = new ProfileDetails(userModel.getEmail(),userModel.getUsername(),userModel.getMobileNumber()
+                ,userModel.getAddress(),userModel.getCountry(),userModel.getPinCode());
         return ResponseEntity.ok(profileDetails);
     }
 
     @PostMapping("/profile")
-    ResponseEntity<UserModel> addToCart(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Quantity quantity, @PathVariable Long id){
+    ResponseEntity<String> addToCart(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody ProfileDetails profileDetails){
         String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
-        return ResponseEntity.ok(userModel);
+        userModel.setUsername(profileDetails.getUsername());
+        userModel.setEmail(profileDetails.getEmail());
+        userModel.setMobileNumber(profileDetails.getMobileNumber());
+        userModel.setAddress(profileDetails.getAddress());
+        userModel.setCountry(profileDetails.getCountry());
+        userModel.setPinCode(profileDetails.getPinCode());
+        userModelRepository.save(userModel);
+        return ResponseEntity.ok("Updated Profile");
     }
 
 

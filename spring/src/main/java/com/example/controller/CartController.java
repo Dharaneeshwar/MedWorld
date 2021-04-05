@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,6 +46,21 @@ public class CartController {
 	 
 	 @Autowired
 	 private CartRepository cartRepository;
+
+    @RequestMapping(value = "/cart/total", method = RequestMethod.GET)
+    ResponseEntity<Long> getTotal( @RequestHeader(value="Authorization") String authorizationHeader) {
+        String jwt = authorizationHeader.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
+
+        Long totalPrice=new Long(0);
+        for(CartModel c:cartRepository.findAllByUserId(userModel))
+        {
+            totalPrice += Long.parseLong(c.getPrice());
+        }
+        return ResponseEntity.ok(totalPrice);
+    }
 
     @RequestMapping(value = "/home/{productId}", method = RequestMethod.GET)
     ResponseEntity<?> checkProduct( @RequestHeader(value="Authorization") String authorizationHeader, @PathVariable Long productId) {

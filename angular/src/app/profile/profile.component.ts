@@ -28,10 +28,11 @@ export class ProfileComponent implements OnInit {
     // this.user.phoneNumber='9953688239';
   }
   onsubmit(){
+    console.log("Clicked");
     this.updateProfile();
   }
 
-  updateProfile(){
+  private updateProfile(){
     this.profileService.updateUserInfo(this.user).subscribe(data =>{
       console.log("SucessFull");
       this.router.navigateByUrl('/home');
@@ -41,6 +42,7 @@ export class ProfileComponent implements OnInit {
 
   private getProfile(){
     this.profileService.getUserInfo().subscribe(data =>{
+      console.log(data);
       this.user = data;
     },error => console.log(error)
     )

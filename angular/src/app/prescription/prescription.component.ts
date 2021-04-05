@@ -32,7 +32,7 @@ export class PrescriptionComponent implements OnInit {
   message: string = '';
   quantity:number = 1;
   // Top Table 
-  userName:string = ""; 
+  username:string = ""; 
   payingAmount!: number; // in INR
   mobileNumber:string = "";
   
@@ -63,9 +63,10 @@ export class PrescriptionComponent implements OnInit {
   
   initOrder(){
     this.orderService.initOrders({'orderType':this.orderType,'prodId':this.prodId}).subscribe(data => {
-      this.userName = data.userName;
-      this.payingAmount = data.totalAmount;
+      this.username = data.username;
+      this.payingAmount = data.totalPrice;
       this.mobileNumber = data.mobileNumber; 
+      console.log(data);
       localStorage.setItem('current_order',data.orderId.toString());
     })
   }
@@ -95,10 +96,9 @@ export class PrescriptionComponent implements OnInit {
 
   goToPayment(goTo: string) {
     const uploadImageData = new FormData();
-    uploadImageData.append(
-      localStorage.getItem('current_order')+"",
+    uploadImageData.append("image", //localStorage.getItem('current_order')+"",
       this.selectedFile,
-      this.selectedFile.name
+      localStorage.getItem('current_order')+'`'+this.selectedFile.name
     );
 
 
@@ -107,6 +107,7 @@ export class PrescriptionComponent implements OnInit {
       }).subscribe((response) => {
         if (response.status === 200) {
           this.message = 'Image uploaded successfully';
+          console.log("uploaded");
           this.router.navigateByUrl(`payment/${this.payfor}`);
         } else {
           this.message = 'Image not uploaded successfully';
