@@ -10,6 +10,7 @@
         <th style="text-align:center">Price</th>
         <th style="text-align:center">Quantity</th>
         <th style="text-align:center">Amount</th>
+        <th style="text-align:center">Delete</th>
       </tr>
     </thead>
     <tbody class="text-center">
@@ -18,6 +19,9 @@
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price/items.quantity}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.quantity}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{items.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">
+          <a (click)="removeCart(items.productId)"><i class="text-light p-2 fas fa-trash-alt bg-danger tiny-btn"></i></a>
+        </td>
       </tr>
     </tbody>
   </table>

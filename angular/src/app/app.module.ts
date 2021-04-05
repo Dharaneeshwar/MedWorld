@@ -24,6 +24,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ProductpageComponent } from './productpage/productpage.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { UserGuard } from './guard/user.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,11 +54,13 @@ import { PrescriptionComponent } from './prescription/prescription.component';
     ReactiveFormsModule,
   ],
   providers: [
+    UserGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
-    },
+    }
+    
   ],
   bootstrap: [AppComponent],
 })

@@ -13,6 +13,7 @@ import { SignupComponent } from './signup/signup.component';
 import { UserOrderComponent } from './user-order/user-order.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
+import { UserGuard } from './guard/user.guard';
 
 const routes: Routes = [
   // ADMIN routes here
@@ -25,14 +26,14 @@ const routes: Routes = [
   {path:'',redirectTo: 'login', pathMatch:'full'},
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
-  {path:'home',component:HomeComponent},
-  {path:'cart',component:CartComponent},
-  {path:'orders',component:UserOrderComponent},
-  {path:'profile',component:ProfileComponent},
-  {path:'prescription/:payFor',component:PrescriptionComponent},
-  {path:'product/:id',component:ProductpageComponent},
+  {path:'home',component:HomeComponent,canActivate:[UserGuard]},
+  {path:'cart',component:CartComponent,canActivate:[UserGuard]},
+  {path:'orders',component:UserOrderComponent,canActivate:[UserGuard]},
+  {path:'profile',component:ProfileComponent,canActivate:[UserGuard]},
+  {path:'prescription/:payFor',component:PrescriptionComponent,canActivate:[UserGuard]},
+  {path:'product/:id',component:ProductpageComponent,canActivate:[UserGuard]},
   {path:'payment',redirectTo: '/home', pathMatch:'full'},
-  {path:'payment/:payFor',component:PaymentComponent}
+  {path:'payment/:payFor',component:PaymentComponent,canActivate:[UserGuard]}
 
 ];
 

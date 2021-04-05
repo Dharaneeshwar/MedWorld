@@ -49,6 +49,7 @@
                         </div>
                     </div>
                     <p *ngIf="showError" class="mt-2 ml-3 text-danger">The credentials are wrong 😕</p>
+                    <p *ngIf="userExists" class="mt-2 ml-3 text-danger">The Account already exist. Please Login</p>
                     <p *ngIf="showPassNotMatch" class="mt-2 ml-3 text-danger">The Password and Confirm Password did not match 😕</p>
                     <div class="form-group">
                         <div class="col-md-9">

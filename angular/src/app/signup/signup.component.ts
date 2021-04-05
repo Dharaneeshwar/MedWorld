@@ -19,9 +19,11 @@ export class SignupComponent implements OnInit {
   showError: boolean = false;
   showLoading: boolean = false;
   showPassNotMatch:boolean = false;
+  userExists:boolean = false;
 
   onsubmit() {
     console.log(this.signup);
+    this.userExists = false;
     this.showPassNotMatch = false;
     this.showError = false;
     if (this.signup.password == this.confirmPass) {
@@ -33,7 +35,7 @@ export class SignupComponent implements OnInit {
             this.goToLogin();
           } else {
             this.showLoading = false;
-            this.showError = true;
+            this.userExists = true;
           }
         },
         (error) => {

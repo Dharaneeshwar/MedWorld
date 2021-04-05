@@ -48,10 +48,12 @@ export class LoginComponent implements OnInit, AfterViewInit {
   showLoading:boolean = false;
 
   onsubmit() {
+    console.log("submitted");
     this.showLoading = true;
     this.showError = false;
     this.loginService.login(this.login).subscribe(
       (data) => {
+        console.log(data);
         if (data.status){
           localStorage.setItem('token',data.token);
           if (data.isAdmin){
