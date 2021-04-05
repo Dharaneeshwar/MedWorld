@@ -15,6 +15,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
+import { OrdergroupComponent } from './admin/ordergroup/ordergroup.component';
+import { AcceptOrderComponent } from './admin/accept-order/accept-order.component';
 
 const routes: Routes = [
   // ADMIN routes here
@@ -22,6 +24,8 @@ const routes: Routes = [
   {path:'addProduct', component:AddproductComponent,canActivate:[AdminGuard]},
   {path:'admin/orders', component:OrderlistComponent,canActivate:[AdminGuard]},
   {path:'admin/edit/:id', component:EditproductComponent,canActivate:[AdminGuard]},
+  {path:'admin/ordergroup', component:OrdergroupComponent,canActivate:[AdminGuard]},
+  {path:'admin/ordergroup/:id', component:AcceptOrderComponent,canActivate:[AdminGuard]},
 
   // USER routes here
   {path:'',redirectTo: 'login', pathMatch:'full'},

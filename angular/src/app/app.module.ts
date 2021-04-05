@@ -26,6 +26,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
+import { OrdergroupComponent } from './admin/ordergroup/ordergroup.component';
+import { AcceptOrderComponent } from './admin/accept-order/accept-order.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +48,8 @@ import { AdminGuard } from './guard/admin.guard';
     ProductpageComponent,
     PaymentComponent,
     PrescriptionComponent,
+    OrdergroupComponent,
+    AcceptOrderComponent,
   ],
   imports: [
     BrowserModule,
