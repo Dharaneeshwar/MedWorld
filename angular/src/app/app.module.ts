@@ -25,6 +25,7 @@ import { ProductpageComponent } from './productpage/productpage.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { UserGuard } from './guard/user.guard';
+import { AdminGuard } from './guard/admin.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import { UserGuard } from './guard/user.guard';
   ],
   providers: [
     UserGuard,
+    AdminGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

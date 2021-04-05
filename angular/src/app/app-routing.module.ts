@@ -14,13 +14,14 @@ import { UserOrderComponent } from './user-order/user-order.component';
 import { PaymentComponent } from './payment/payment.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { UserGuard } from './guard/user.guard';
+import { AdminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
   // ADMIN routes here
-  {path:'admin', component:AdminComponent},
-  {path:'addProduct', component:AddproductComponent},
-  {path:'admin/orders', component:OrderlistComponent},
-  {path:'admin/edit/:id', component:EditproductComponent},
+  {path:'admin', component:AdminComponent,canActivate:[AdminGuard]},
+  {path:'addProduct', component:AddproductComponent,canActivate:[AdminGuard]},
+  {path:'admin/orders', component:OrderlistComponent,canActivate:[AdminGuard]},
+  {path:'admin/edit/:id', component:EditproductComponent,canActivate:[AdminGuard]},
 
   // USER routes here
   {path:'',redirectTo: 'login', pathMatch:'full'},
