@@ -20,10 +20,6 @@ export class OrderService {
     return this.httpClient.post<OrderList>(`${this.baseUrl}/initOrders`,obj);
   }
 
-  getOrder(id:string):Observable<OrderList>{
-    return this.httpClient.get<OrderList>(`${this.baseUrl}/admin/orderlist/${id}`)
-  }
-
   getOrderItems(orderId:string):Observable<Order[]>{
     return this.httpClient.get<Order[]>(`${this.baseUrl}/admin/orders/${orderId}`)
   }
@@ -38,4 +34,21 @@ export class OrderService {
     return this.httpClient.get<OrderList[]>(`${this.baseUrl}/admin/orderlist`);
   }
 
+  getOrder(id:string):Observable<OrderList>{
+    return this.httpClient.get<OrderList>(`${this.baseUrl}/admin/orderlist/${id}`)
+  }
+
+  // For user 
+  getUserOrderList():Observable<OrderList[]>{
+    return this.httpClient.get<OrderList[]>(`${this.baseUrl}/orderlist`);
+  }
+
+
+  getUserOrder(id:string):Observable<OrderList>{
+    return this.httpClient.get<OrderList>(`${this.baseUrl}/orderlist/${id}`)
+  }
+
+  getUserOrderItems(orderId:string):Observable<Order[]>{
+    return this.httpClient.get<Order[]>(`${this.baseUrl}/orders/${orderId}`)
+  }
 }

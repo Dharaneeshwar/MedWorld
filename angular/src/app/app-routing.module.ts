@@ -17,6 +17,8 @@ import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
 import { OrdergroupComponent } from './admin/ordergroup/ordergroup.component';
 import { AcceptOrderComponent } from './admin/accept-order/accept-order.component';
+import { UserOrdergroupComponent } from './user-ordergroup/user-ordergroup.component';
+import { UserOrderitemsComponent } from './user-orderitems/user-orderitems.component';
 
 const routes: Routes = [
   // ADMIN routes here
@@ -38,7 +40,9 @@ const routes: Routes = [
   {path:'prescription/:payFor',component:PrescriptionComponent,canActivate:[UserGuard]},
   {path:'product/:id',component:ProductpageComponent,canActivate:[UserGuard]},
   {path:'payment',redirectTo: '/home', pathMatch:'full'},
-  {path:'payment/:payFor',component:PaymentComponent,canActivate:[UserGuard]}
+  {path:'payment/:payFor',component:PaymentComponent,canActivate:[UserGuard]},
+  {path:'ordergroup',component:UserOrdergroupComponent,canActivate:[UserGuard]},
+  {path:'ordergroup/:id',component:UserOrderitemsComponent,canActivate:[UserGuard]}
 
 ];
 

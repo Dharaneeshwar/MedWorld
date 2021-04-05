@@ -1,0 +1,30 @@
+<app-user-nav></app-user-nav>
+<div id="adminOrderBody" class="container mt-5 pt-4">
+    <h2 class="py-3" style="font-family: 'Patua One', cursive;">Orders</h2>
+    <div class="table-responsive r-scroll">
+        <table id="adminDashboard" class="text-center table table-striped">
+            <thead class="bg-primary text-light">
+                <th>Order ID</th>
+                <th>Prescription Image</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Accept</th>
+            </thead>
+            <tr *ngFor="let order of orders">
+                <td class="align-middle">{{order.paymentId}}</td>
+                <td class="align-middle"><img src="{{order.prescriptionImage}}" width="100rem" alt="" srcset=""></td>
+                <td class="align-middle">{{order.totalAmount}}</td>
+                <td class="align-middle">
+                    <b *ngIf="order.status == 1" class="text-success">Accepted</b>
+                    <b *ngIf="order.status == 2" class="text-danger">Rejected</b>
+                    <b *ngIf="order.status == 0" class="text-warning">Pending</b>
+                </td>
+                <td class="align-middle">
+                    <button class="btn btn-primary"
+                        (click)="goToAccept('ordergroup/'+order.orderId)">Open</button>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+</div>

@@ -28,6 +28,8 @@ import { UserGuard } from './guard/user.guard';
 import { AdminGuard } from './guard/admin.guard';
 import { OrdergroupComponent } from './admin/ordergroup/ordergroup.component';
 import { AcceptOrderComponent } from './admin/accept-order/accept-order.component';
+import { UserOrdergroupComponent } from './user-ordergroup/user-ordergroup.component';
+import { UserOrderitemsComponent } from './user-orderitems/user-orderitems.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,6 +52,8 @@ import { AcceptOrderComponent } from './admin/accept-order/accept-order.componen
     PrescriptionComponent,
     OrdergroupComponent,
     AcceptOrderComponent,
+    UserOrdergroupComponent,
+    UserOrderitemsComponent,
   ],
   imports: [
     BrowserModule,
