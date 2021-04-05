@@ -50,7 +50,6 @@ export class HomeComponent implements OnInit {
     );
   }
   private getProducts() {
-<<<<<<< HEAD
     this.homeService.getProducts().subscribe(
       (data) => {
         this.homeproducts = data;
@@ -64,17 +63,6 @@ export class HomeComponent implements OnInit {
         this.notLoading = true;
         this.loading = false;
       }
-=======
-    this.homeService.getProducts().subscribe((data) => {
-      this.homeproducts = data;
-      this.allproducts = data;
-      this.loading = false;
-    },error => {
-      console.log(error);
-      this.notLoading = true;
-      this.loading = false;
-    }
->>>>>>> a710ad6 (ORder List And everythin done, Extra features in admin pending)
     );
     // this.loading = false;
     // this.allproducts = [
