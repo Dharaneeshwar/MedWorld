@@ -14,19 +14,27 @@ export class AcceptOrderComponent implements OnInit {
   orderId:string = "";
   orderData!:OrderList;
   orders:Order[] = [];
-
+  paymentId:string = ""
   constructor(private orderService:OrderService, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.orderId = this.activatedRoute.snapshot.params['id'];
     this.getOrderDetails();
-    this.getOrderItems();
+    
+    this.orderService.getParticularOrder(this.orderId).subscribe((data) => {
+      this.paymentId = data.orderId;
+      console.log("payment",this.paymentId);
+      this.getOrderItems();
+    });
   }
 
   getOrderDetails(){
     this.orderService.getOrder(this.orderId).subscribe((data) => {
       this.orderData = data;
-    })
+      console.log("orderdata.....",data);
+      
+    },error => console.log(error)
+    )
     this.orderData = {
       'mobileNumber':'123456789',
       'id':12345,
@@ -40,15 +48,18 @@ export class AcceptOrderComponent implements OnInit {
   }
 
   getOrderItems(){
-    this.orderService.getOrderItems(this.orderId).subscribe((data) => {
+    this.orderService.getOrderItems(this.paymentId).subscribe((data) => {
       this.orders = data;
-    })
+      console.log("items...",data);
+      
+    },error => console.log(error)
+    )
   }
 
   changeStatus(status:number){
     this.orderData.status = status;
     this.orderService.changeOrderStatus(this.orderId,status).subscribe((data) => {
-      console.log("status changed succesfully");
+      console.log("status changed succesfully",data);
     },error => console.log(error)
     )
   }

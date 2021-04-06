@@ -1,8 +1,10 @@
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderList } from 'src/app/model/order-list';
 import { OrderService } from 'src/app/services/order.service';
 import { OrderlistComponent } from '../orderlist/orderlist.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-ordergroup',
@@ -11,7 +13,7 @@ import { OrderlistComponent } from '../orderlist/orderlist.component';
 })
 export class OrdergroupComponent implements OnInit {
   orders:OrderList[] = [];
-  constructor(private router:Router, private orderService:OrderService) { }
+  constructor(private router:Router, private orderService:OrderService,private domSanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.getOrderList();
@@ -31,7 +33,15 @@ export class OrdergroupComponent implements OnInit {
 
   getOrderList() {
     this.orderService.getOrderList().subscribe((data) => {
-      this.orders = data;
+      // this.orders = data;
+      for (var ele of data){
+        var newele = ele;
+        console.log(ele);
+        newele.prescriptionImage = ele.prescriptionImage;
+        newele.prescriptionImage = this.domSanitizer.bypassSecurityTrustResourceUrl(
+          'data:image/jpeg;base64,' + ele.prescriptionImage);
+        this.orders.push(newele);
+      } 
     })
   }
   goToAccept(goto:string){

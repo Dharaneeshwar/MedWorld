@@ -1,5 +1,5 @@
 export class Order {
-    orderId: number = 0;
+    orderId: string = "";
     userId: number = 0;
     productName:string = ""; 
     quantity:number = 0; 

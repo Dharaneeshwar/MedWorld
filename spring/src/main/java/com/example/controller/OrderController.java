@@ -16,10 +16,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.zip.Deflater;
 
 @CrossOrigin(origins = "http://localhost:8081")
@@ -89,7 +91,7 @@ public class OrderController {
         	orderListModel.setPaymentId("COD"+String.valueOf(millis));
         	orderId = "cod_"+String.valueOf(millis);
         }
-        orderListModel.setStatus(Long.parseLong("1"));
+        orderListModel.setStatus(Long.parseLong("0"));
         orderListRepository.save(orderListModel);
         for(CartModel c: cartModels) {
         	OrderModel orderModel = new OrderModel();
@@ -130,7 +132,7 @@ public class OrderController {
         	orderListModel.setPaymentId("COD"+String.valueOf(millis));
         	orderId = "cod_"+String.valueOf(millis);
         }
-        orderListModel.setStatus(Long.parseLong("1"));
+        orderListModel.setStatus(Long.parseLong("0"));
         orderListRepository.save(orderListModel);
         
         
@@ -219,5 +221,78 @@ public class OrderController {
         return outputStream.toByteArray();
     }
     
+    // Order-list - Admin
+    @GetMapping("/admin/orderlist")
+    public List<OrderListModel> getOrderList(){
+    	return orderListRepository.findByStatusNotIn(Arrays.asList(Long.valueOf(-1)));
+    }
+    
+    @GetMapping("/admin/orderlist/{Id}")
+    public Optional<OrderListModel> getOrderList(@PathVariable Long Id){
+    	System.out.println("inside OrderList");
+    	return orderListRepository.findById(Id);
+    }
+    
+    @GetMapping("/admin/orders/{orderId}")
+    public List<OrderModel> getOrdersById(@PathVariable String orderId){
+    	System.out.println("inside GetOrdersbyID...."+orderId);
+    	return orderRepository.findAllByOrderId(orderId);
+    	
+    }
+    
+    @GetMapping("/admin/order/{Id}")
+    public OrderModel getOrderById(@PathVariable long Id){
+    	System.out.println("inside GetOrder by Pk....");
+    	return orderRepository.findById(Id);
+    	
+    }
 
+    @PostMapping("/admin/changeStatus/{orderId}")
+    public boolean changeStatus(@PathVariable long orderId,@RequestBody String status) {
+    	System.out.println("inside status update...."+orderId+" "+status);
+    	OrderListModel orderListModel = orderListRepository.findById(orderId).orElse(null); 
+    	orderListModel.setStatus(Long.parseUnsignedLong(status));
+    	orderListRepository.save(orderListModel);
+    	return true;
+    }
+    
+    // OrderList - User 
+    
+    @GetMapping("/orderlist")
+    public List<OrderListModel> getUserOrderList(@RequestHeader(value="Authorization") String authorizationHeader){
+    	String jwt = authorizationHeader.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+        UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
+        return orderListRepository.findAllByUserId(userModel.getUserId());        
+    }
+    
+    @GetMapping("/orderlist/{Id}")
+    public OrderListModel getUserOrderList(@RequestHeader(value="Authorization") String authorizationHeader, @PathVariable Long Id){
+    	String jwt = authorizationHeader.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+    	System.out.println("inside OrderList");
+    	UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
+    	List<OrderListModel> orderListModels = orderListRepository.findAllByUserId(userModel.getUserId());
+    	for (OrderListModel orderListModel: orderListModels) {
+    		if (orderListModel.getId() == Id) {
+    			return orderListModel;
+    		}
+    	}
+    	return null;
+    }
+    
+    @GetMapping("/orders/{orderId}")
+    public List<OrderModel> getUserOrdersById(@RequestHeader(value="Authorization") String authorizationHeader, @PathVariable String orderId){
+    	System.out.println("USER.... inside GetOrdersbyID...."+orderId);
+    	return orderRepository.findAllByOrderId(orderId);
+    }
+    
+    @GetMapping("/order/{Id}")
+    public OrderModel getUserOrderById(@PathVariable long Id){
+    	System.out.println("inside GetOrder by Pk....");
+    	return orderRepository.findById(Id);
+    	
+    }
 }

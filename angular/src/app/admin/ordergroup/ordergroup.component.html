@@ -6,7 +6,7 @@
             <thead class="bg-primary text-light">
                 <th>Order ID</th>
                 <th>User ID</th>
-                <th>Prescription Image</th>
+                <!-- <th>Prescription Image</th> -->
                 <th>Price</th>
                 <th>Status</th>
                 <th>Accept</th>
@@ -14,7 +14,7 @@
             <tr *ngFor="let order of orders">
                 <td class="align-middle">{{order.paymentId}}</td>
                 <td class="align-middle">{{order.userId}}</td>
-                <td class="align-middle"><img src="{{order.prescriptionImage}}" width="100rem" alt="" srcset=""></td>
+                <!-- <td class="align-middle"><img [src]="order.prescriptionImage" width="100rem" alt="" srcset=""></td> -->
                 <td class="align-middle">{{order.totalPrice}}</td>
                 <td class="align-middle">
                     <b *ngIf="order.status == 1" class="text-success">Accepted</b>
@@ -22,7 +22,7 @@
                     <b *ngIf="order.status == 0" class="text-warning">Pending</b>
                 </td>
                 <td class="align-middle">
-                    <button class="btn btn-primary"
+                    <button class="btn btn-outline-primary"
                         (click)="goToAccept('admin/ordergroup/'+order.id)">Open</button>
                 </td>
             </tr>

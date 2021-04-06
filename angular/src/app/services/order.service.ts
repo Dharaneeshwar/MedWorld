@@ -25,7 +25,8 @@ export class OrderService {
   }
 
   changeOrderStatus(orderId:string,status:number):Observable<Object>{
-    return this.httpClient.post(`${this.baseUrl}/admin/orders/${orderId}`,{'status':status});
+    console.log("Change status.... call",orderId,status);
+    return this.httpClient.post(`${this.baseUrl}/admin/changeStatus/${orderId}`,status);
   }
 
   // orderList 
@@ -34,8 +35,9 @@ export class OrderService {
     return this.httpClient.get<OrderList[]>(`${this.baseUrl}/admin/orderlist`);
   }
 
-  getOrder(id:string):Observable<OrderList>{
-    return this.httpClient.get<OrderList>(`${this.baseUrl}/admin/orderlist/${id}`)
+  getOrder(id:string):Observable<any>{
+    console.log("orderlists id.....",id);
+    return this.httpClient.get<any>(`${this.baseUrl}/admin/orderlist/${id}`)
   }
 
   // For user 
@@ -50,5 +52,13 @@ export class OrderService {
 
   getUserOrderItems(orderId:string):Observable<Order[]>{
     return this.httpClient.get<Order[]>(`${this.baseUrl}/orders/${orderId}`)
+  }
+
+  getParticularOrder(id:string):Observable<Order>{
+    return this.httpClient.get<Order>(`${this.baseUrl}/admin/order/${id}`)
+  }
+
+  getUserParticularOrder(id:string):Observable<Order>{
+    return this.httpClient.get<Order>(`${this.baseUrl}/order/${id}`)
   }
 }

@@ -11,19 +11,24 @@ import { OrderService } from '../services/order.service';
 })
 export class UserOrderitemsComponent implements OnInit {
   orderId:string = "";
-  orderData!:OrderList;
+  orderData:any;
   orders:Order[] = [];
-  
+  paymentId:string = "";
   constructor(private orderService:OrderService, private activatedRoute:ActivatedRoute) { }
 
   ngOnInit(): void {
     this.orderId = this.activatedRoute.snapshot.params['id'];
     this.getOrderDetails();
-    this.getOrderItems();
+    this.orderService.getUserParticularOrder(this.orderId).subscribe((data) => {
+      this.paymentId = data.orderId;
+      console.log("payment",this.paymentId);
+      this.getOrderItems();
+    });
   }
 
   getOrderDetails(){
     this.orderService.getUserOrder(this.orderId).subscribe((data) => {
+      console.log(data);
       this.orderData = data;
     })
     // this.orderData = {
@@ -39,8 +44,10 @@ export class UserOrderitemsComponent implements OnInit {
   }
 
   getOrderItems(){
-    this.orderService.getUserOrderItems(this.orderId).subscribe((data) => {
+    this.orderService.getUserOrderItems(this.paymentId).subscribe((data) => {
       this.orders = data;
+      console.log("items....",data);
+      
     })
   }
 
