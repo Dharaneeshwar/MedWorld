@@ -21,7 +21,7 @@ public class OrderModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    private Long orderId;
+    private String orderId;
     
     @Column(name = "userId")
     private Long userId;
@@ -43,13 +43,9 @@ public class OrderModel {
 
     @ManyToOne
     private UserModel userModel;
-
-    public OrderModel()
-    {
-        long millis = 1556175797428L;
-        Date date =new Date();
-        millis = date.getTime();
-        this.setOrderId(millis);
+    
+    public OrderModel() {
+    	
     }
 
     public OrderModel(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
@@ -61,11 +57,11 @@ public class OrderModel {
         this.price = price;
     }
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
+    public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
 

@@ -24,12 +24,13 @@ export class UserNavComponent implements OnInit {
   logout(): void {
     console.log('Logout');
 
-    this.loginService.logout().subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => console.log(error)
-    );
+    // this.loginService.logout().subscribe(
+    //   (data) => {
+    //     console.log(data);
+    //   },
+    //   (error) => console.log(error)
+    // );
+    
     localStorage.removeItem('token');
     this.goToLogin();
   }

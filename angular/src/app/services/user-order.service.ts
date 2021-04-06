@@ -12,8 +12,8 @@ export class UserOrderService {
   //private baseUrl = "https://8080-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io";
   constructor(private httpClient:HttpClient) { }
 
-  getOrders():Observable<UserOrder[]>{
-    return this.httpClient.get<UserOrder[]>(`${this.baseUrl}/orders`);
+  getOrders():Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrl}/orders`,true);
   }
 
 }

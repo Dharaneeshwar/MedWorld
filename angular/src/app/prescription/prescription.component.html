@@ -8,7 +8,8 @@
           <div class="col-11">
             <ul class="list-group list-group-flush">
               <li class="list-group-item"><b>Username:</b><a class="text-dark ml-2">@{{username}}</a></li>
-              <li class="list-group-item"><b>Bill Amount:</b><span class="text-dark ml-2">₹{{payingAmount}}</span></li>
+              <li *ngIf="orderType != 'prod'" class="list-group-item"><b>Bill Amount:</b><span class="text-dark ml-2">₹{{payingAmount}}</span></li>
+              <li *ngIf="orderType == 'prod'" class="list-group-item"><b>Bill Amount:</b><span class="text-dark ml-2">₹{{payingAmount*quantity}}</span></li>
               <li class="list-group-item"><b>Phone Number:</b><span class="text-dark ml-2">{{mobileNumber}}</span></li>
             </ul>
           </div>
@@ -32,7 +33,7 @@
             <tr *ngIf="orderType == 'prod'">
               <td style="text-align:center; align-items: center; vertical-align:middle;">{{singleProduct.productId}}</td>
               <td style="text-align:center; align-items: center; vertical-align:middle;">{{singleProduct.productName}}</td>
-              <td style="text-align:center; align-items: center; vertical-align:middle;">{{+singleProduct.price}}</td>
+              <td style="text-align:center; align-items: center; vertical-align:middle;">{{+singleProduct.price*quantity}}</td>
             </tr>
           </tbody>
         </table>
@@ -58,6 +59,7 @@
         <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="imgFile">
         <label class="custom-file-label" for="imgFile">Choose file</label>
       </div>
+      <p *ngIf="imageSizeLimit" class="text-danger mt-2 ml-1">Image size is too large</p>
       <p class="text-danger mt-2 ml-1">{{message}}</p>
       <button *ngIf="filename == 'null'" class="btn btn-primary mt-5 d-block ml-auto" disabled>Upload Image and Proceed
         to Payment</button>

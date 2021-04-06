@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.Deflater;
@@ -73,52 +74,87 @@ public class OrderController {
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);   
         List<CartModel>  cartModels = cartRepository.findAllByUserId(userModel);
         System.out.println("inside /saveorder");
-        OrderListModel orderListModel = orderListRepository.findByOrderId(Long.parseLong(data.get("orderId"))).orElse(null);
+        OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(data.get("orderId"))).orElse(null);
+        String orderId = "";
         if (data.get("paymentType").equals("paid")) {
         	orderListModel.setPaymentId(data.get("razorPay"));
+        	orderListModel.setType("paid");
+        	orderId = data.get("razorPay");
+        	
         } else {
         	long millis = 1556175797428L;
             Date date =new Date();
             millis = date.getTime();
+            orderListModel.setType("COD");
         	orderListModel.setPaymentId("COD"+String.valueOf(millis));
+        	orderId = "cod_"+String.valueOf(millis);
         }
+        orderListModel.setStatus(Long.parseLong("1"));
+        orderListRepository.save(orderListModel);
         for(CartModel c: cartModels) {
-        	orderModel.setPrice(c.getPrice());
+        	OrderModel orderModel = new OrderModel();
+        	orderModel.setPrice(String.valueOf(Integer.parseInt(c.getPrice())/c.getQuantity()));
         	orderModel.setProductName(c.getProductName());
         	orderModel.setQuantity(c.getQuantity());
         	orderModel.setStatus("placed");
+        	orderModel.setOrderId(orderId);
         	orderModel.setUserId(userModel.getUserId());
-        	orderModel.setTotalPrice(String.valueOf(Integer.parseInt(c.getPrice())*c.getQuantity()));
+        	orderModel.setTotalPrice(String.valueOf(Integer.parseInt(c.getPrice())));
         	orderRepository.save(orderModel);
+        	cartRepository.delete(c);
         }
         
         return orderRepository.findAll();
     }
     
     @PostMapping("/placeOrder")
-    public  ResponseEntity<Boolean> placeOrder(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody OrderModel orderModel) {
-		String jwt = authorizationHeader.substring(7);
+    public ResponseEntity<Boolean> placeOrder(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Map<String,String> data) {
+    	
+    	String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);   
-       
-        if(userModel.getUserId() != orderModel.getUserId()) {
-        	return ResponseEntity.ok(false);
+        System.out.println("inside /placeorder");
+        OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(data.get("orderId"))).orElse(null);
+        String orderId = "";
+        if (data.get("paymentType").equals("paid")) {
+        	orderListModel.setPaymentId(data.get("razorPay"));
+        	orderListModel.setType("paid");
+        	orderId = data.get("razorPay");
+        	
+        } else {
+        	long millis = 1556175797428L;
+            Date date =new Date();
+            millis = date.getTime();
+            orderListModel.setType("COD");
+        	orderListModel.setPaymentId("COD"+String.valueOf(millis));
+        	orderId = "cod_"+String.valueOf(millis);
         }
-        else {
-        	orderRepository.save(orderModel);       
-        	return ResponseEntity.ok(true);
-        }
+        orderListModel.setStatus(Long.parseLong("1"));
+        orderListRepository.save(orderListModel);
+        
+        
+        ProductModel product = productRepository.getOne(Long.parseLong(data.get("prodId")));
+        orderModel.setPrice(product.getPrice());
+        orderModel.setProductName(product.getProductName());
+    	orderModel.setQuantity(Integer.parseInt(data.get("totalPayAmt"))/Integer.parseInt(product.getPrice()));
+    	orderModel.setStatus("placed");
+    	orderModel.setOrderId(orderId);
+    	orderModel.setUserId(userModel.getUserId());
+    	orderModel.setTotalPrice(String.valueOf(data.get("totalPayAmt")));
+    	orderRepository.save(orderModel);
+    
+        return ResponseEntity.ok(true);
     }
 
     @PostMapping("/initOrders")
-    public  OrderListModel initOrders(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Map<String,String> paramData) {
+    public  Map<?,?> initOrders(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody Map<String,String> paramData) {
         String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
         OrderListModel orderListModel = new OrderListModel();
-        orderListModel.setStatus(new Long(0));
+        orderListModel.setStatus(Long.parseLong("-1"));
         orderListModel.setMobileNumber(userModel.getMobileNumber());
         orderListModel.setUsername(userModel.getUsername());
         orderListModel.setUserId(Long.valueOf(userModel.getUserId()));
@@ -135,12 +171,10 @@ public class OrderController {
             }
             orderListModel.setTotalPrice(totalPrice);
         }
-        long millis = 1556175797428L;
-        Date date =new Date();
-        millis = date.getTime();
-        orderListModel.setOrderId(millis);
-        OrderListModel initialisedOrderListModel = orderListRepository.save(orderListModel);
-        return initialisedOrderListModel;
+        orderListRepository.save(orderListModel);
+        HashMap<Long,OrderListModel> init = new HashMap();
+        init.put(orderListModel.getId(),orderListModel);
+        return init;
     }
 
     @PostMapping("/prescription/upload")
@@ -150,7 +184,7 @@ public class OrderController {
 //        UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
 //        UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
         System.out.println(Long.parseLong(file.getOriginalFilename().split("`")[0]));
-        OrderListModel orderListModel = orderListRepository.findByOrderId(Long.parseLong(file.getOriginalFilename().split("`")[0])).orElse(null);
+        OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(file.getOriginalFilename().split("`")[0])).orElse(null);
         if(orderListModel!=null) {
             orderListModel.setPrescriptionImage(compressBytes(file.getBytes()));
             orderListModel.setType(file.getContentType());

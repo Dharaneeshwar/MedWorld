@@ -39,18 +39,18 @@ export class PaymentComponent implements OnInit {
     if (payfor.charAt(0) == 'c') {
       this.orderType = 'cart';
       this.cartService.getTotal().subscribe((data) => {
-        
-        this.payingAmount = data.amount ? data.amount : 1;
-        console.log("data ",data);
-        
+        this.payingAmount = data ? data : 1;
+        console.log('data ', data);
       });
     } else {
       this.orderType = 'prod';
       this.prodId = payfor.slice(2);
       this.homeService.getProduct(this.prodId).subscribe(
         (data) => {
+          console.log('data....', data, this.quantity);
+
           this.payingAmount = +data.price * this.quantity;
-          console.log(this.payingAmount);
+          console.log('Pay......', this.payingAmount);
         },
         (error) => {
           console.log(error);
@@ -104,11 +104,12 @@ export class PaymentComponent implements OnInit {
         paymentType: 'paid',
         totalPayAmt: this.payingAmount,
         razorPay: this.paymentId,
-        orderId:localStorage.getItem('current_order')
+        orderId: localStorage.getItem('current_order'),
       };
       this.paymentServices.placeCartProducts(obj).subscribe(
         (data) => {
           if (data) {
+            localStorage.removeItem('current_order');
             this.router.navigateByUrl('/home');
           }
         },
@@ -121,12 +122,13 @@ export class PaymentComponent implements OnInit {
         paymentType: 'paid',
         totalPayAmt: this.payingAmount,
         razorPay: this.paymentId,
-        orderId:localStorage.getItem('current_order')
+        orderId: localStorage.getItem('current_order'),
       };
-      localStorage.removeItem('current_order');
       this.paymentServices.placeSingleProduct(obj).subscribe(
         (data) => {
+          console.log(data);
           if (data) {
+            localStorage.removeItem('current_order');
             this.router.navigateByUrl('/home');
           }
         },
@@ -137,16 +139,19 @@ export class PaymentComponent implements OnInit {
 
   placeOrderCOD() {
     var obj!: any;
+    console.log('orderid.... ', localStorage.getItem('current_order'));
+    console.log('prodid.... ', this.prodId);
     if (this.orderType == 'cart') {
       obj = {
         orderType: this.orderType,
         paymentType: 'COD',
         totalPayAmt: this.payingAmount,
-        orderId:localStorage.getItem('current_order')
+        orderId: localStorage.getItem('current_order'),
       };
       this.paymentServices.placeCartProducts(obj).subscribe(
         (data) => {
           if (data) {
+            localStorage.removeItem('current_order');
             this.router.navigateByUrl('/home');
           }
         },
@@ -158,12 +163,12 @@ export class PaymentComponent implements OnInit {
         prodId: this.prodId,
         paymentType: 'COD',
         totalPayAmt: this.payingAmount,
-        orderId:localStorage.getItem('current_order')
+        orderId: localStorage.getItem('current_order'),
       };
-      localStorage.removeItem('current_order');
       this.paymentServices.placeSingleProduct(obj).subscribe(
         (data) => {
           if (data) {
+            localStorage.removeItem('current_order');
             this.router.navigateByUrl('/home');
           }
         },

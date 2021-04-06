@@ -10,7 +10,7 @@ import { UserOrderService } from '../services/user-order.service';
 })
 export class UserOrderComponent implements OnInit {
   
-  orders : Array<UserOrder> = new Array<UserOrder>();
+  orders : Array<any> = new Array<UserOrder>();
   
   constructor(private userOrderService:UserOrderService) { }
 

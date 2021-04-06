@@ -36,6 +36,8 @@ export class PrescriptionComponent implements OnInit {
   payingAmount!: number; // in INR
   mobileNumber: string = '';
 
+  imageSizeLimit:boolean = false;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -62,14 +64,19 @@ export class PrescriptionComponent implements OnInit {
   }
 
   initOrder() {
+    console.log("inti order starts");
+    
     this.orderService
       .initOrders({ orderType: this.orderType, prodId: this.prodId })
       .subscribe((data) => {
+        var orderId:string = Object.keys(data)[0];
+        data = data[+orderId];
+        console.log(data);
         this.username = data.username;
         this.payingAmount = data.totalPrice;
         this.mobileNumber = data.mobileNumber;
-        console.log(data);
-        localStorage.setItem('current_order', data.orderId.toString());
+        // console.log("init",data,Object.keys(data)[0]);
+        localStorage.setItem('current_order', orderId);
       });
   }
 
@@ -107,11 +114,18 @@ export class PrescriptionComponent implements OnInit {
     this.httpClient
       .post('http://localhost:8080/prescription/upload', uploadImageData)
       .subscribe((data) => {
-        this.router.navigateByUrl(`payment/${this.payfor}`);
-      });
-    this.router.navigate(['payment', this.payfor], {
-      queryParams: { quantity: this.quantity },
-    });
+        if (data){
+          if (this.orderType == "prod"){
+            this.router.navigateByUrl(`payment/${this.payfor}?quantity=${this.quantity}`);  
+          } else {
+          this.router.navigateByUrl(`payment/${this.payfor}`);
+          }
+        } else {
+          this.imageSizeLimit = true;
+        }
+      },error => {
+        this.imageSizeLimit = true;
+      })
   }
 
   // getImage() {

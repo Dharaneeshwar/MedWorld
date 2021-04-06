@@ -1,4 +1,5 @@
 export class CartProduct{
+    cartItemId!: string;
     presentInCart !: boolean;
     productName !: string; 
     price !: number;

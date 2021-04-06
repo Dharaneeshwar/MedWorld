@@ -9,6 +9,7 @@
                 <th>Medicine Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Amount</th>
             </thead>
             <tr *ngFor="let order of orders">
                 <td>{{order.orderId}}</td>
@@ -16,6 +17,7 @@
                 <td>{{order.productName}}</td>
                 <td>{{order.price}}</td>
                 <td>{{order.quantity}}</td>
+                <td>{{order.totalPrice}}</td>
             </tr>
         </table>
     </div>

@@ -28,7 +28,7 @@ export class ProductpageComponent implements OnInit {
       (error) => console.log(error)
     );
     this.homeService.getCartInfo(this.id).subscribe(data => {
-      this.quantity = data.quantity;
+      this.quantity = data.quantity == 0? 1: data.quantity;
       this.inCart = data.presentInCart;
       console.log(data);
       
@@ -67,10 +67,12 @@ export class ProductpageComponent implements OnInit {
 
   removeFromCart(id:string){
     this.inCart = ! this.inCart;
+    console.log('id ',id);
     this.homeService.removeFromCart(id).subscribe(data => {
-      console.log("Deleted from cart");
-    },error => console.log(error)
-    );
+      console.log("successful",id);
+    },error => {
+      console.log(error);
+    })
   }
 
   goToPrescription() {

@@ -20,7 +20,4 @@ export class LoginService {
     return this.httpClient.get<UserToken>(`${this.baseUrl}/userStatus`);
   }
 
-  logout():Observable<Object>{
-    return this.httpClient.get(`${this.baseUrl}/logout`);
-  }
 }

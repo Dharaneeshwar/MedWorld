@@ -19,13 +19,6 @@ export class AdminNavComponent implements OnInit {
   }
   logout(): void {
     console.log('Logout');
-
-    this.loginService.logout().subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => console.log(error)
-    );
     localStorage.removeItem('token');
     this.goToLogin();
   }

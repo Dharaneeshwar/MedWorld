@@ -16,8 +16,8 @@ export class OrderService {
     return this.httpClient.get<Order[]>(`${this.baseUrl}/admin/orders`);
   }
 
-  initOrders(obj:Object):Observable<OrderList>{
-    return this.httpClient.post<OrderList>(`${this.baseUrl}/initOrders`,obj);
+  initOrders(obj:Object):Observable<any>{
+    return this.httpClient.post<any>(`${this.baseUrl}/initOrders`,obj);
   }
 
   getOrderItems(orderId:string):Observable<Order[]>{

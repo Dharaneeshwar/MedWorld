@@ -10,9 +10,7 @@ public class OrderListModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-
-    private Long orderId;
-
+    
     private String paymentId;
 
     private Long userId;
@@ -44,14 +42,10 @@ public class OrderListModel {
         this.totalPrice = totalPrice;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public Long getId() {
+        return Id;
     }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
+    
     public String getPaymentId() {
         return paymentId;
     }

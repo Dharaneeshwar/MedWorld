@@ -138,8 +138,8 @@ public class CartController {
 	}
 	
 	@RequestMapping(value = "/cart/delete", method = RequestMethod.POST)
-	public boolean deleteCartItem( @RequestHeader(value="Authorization") String authorizationHeader, @RequestBody CartId cartId) {
-		long id = cartId.getCartId();
+	public boolean deleteCartItem( @RequestHeader(value="Authorization") String authorizationHeader, @RequestBody String productId) {
+		long id = Long.parseLong(productId);
 		String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
@@ -147,19 +147,14 @@ public class CartController {
         
         System.out.println("id="+id);
         System.out.println("cart delete 0");
-		CartModel cartModel = cartRepository.findByCartItemId(id).orElse(null);
-		System.out.println("cart delete 1");
-		if(cartModel == null) {
-			System.out.println("cart delete 1.1");
-			return false;
-		}
-		System.out.println("cart delete 2");
-		if(cartModel.getUserId().getUserId() != userModel.getUserId()) {
-			return false;
-		}
-		
-		cartRepository.delete(cartModel);
-		return true;
+		List<CartModel> cartModels = cartRepository.findAllByUserId(userModel);
+		for (CartModel cartModel:cartModels) {
+			if (cartModel.getProductId() == id) {
+				cartRepository.delete(cartModel);
+				return true;
+			}
+		}		
+		return false;
 		
 		
 	}

@@ -29,7 +29,7 @@ export class AcceptOrderComponent implements OnInit {
     })
     this.orderData = {
       'mobileNumber':'123456789',
-      'orderId':12345,
+      'id':12345,
       'paymentId':'12345',
       'prescriptionImage':'https://tiimg.tistatic.com/fp/1/006/254/paracetamol-tablets-ip-803.jpg',
       'status':0,

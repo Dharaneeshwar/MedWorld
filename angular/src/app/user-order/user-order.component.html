@@ -14,10 +14,10 @@
     </thead>
     <tbody class="text-center">
       <tr *ngFor="let o of orders" class="my-row">
-        <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.name}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.productName}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.price}}</td>
         <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.quantity}}</td>
-        <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.quantity*o.price}}</td>
+        <td style="text-align:center; align-items: center; vertical-align:middle;">{{o.price*o.quantity}}</td>
       </tr>
     </tbody>
   </table>
