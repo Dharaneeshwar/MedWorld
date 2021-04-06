@@ -32,12 +32,13 @@ export class ProfileComponent implements OnInit {
     this.updateProfile();
   }
 
-  private updateProfile(){
+  updateProfile(){
+    console.log("inside update");
     this.profileService.updateUserInfo(this.user).subscribe(data =>{
       console.log("SucessFull");
-      this.router.navigateByUrl('/home');
     },error => console.log(error)
     )
+    this.router.navigateByUrl('/home');
   }
 
   private getProfile(){

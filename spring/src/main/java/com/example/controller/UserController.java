@@ -44,6 +44,7 @@ public class UserController {
     ResponseEntity<String> addToCart(@RequestHeader(value="Authorization") String authorizationHeader, @RequestBody ProfileDetails profileDetails){
         String jwt = authorizationHeader.substring(7);
         String username = jwtUtil.extractUsername(jwt);
+        System.out.println("Profile update");
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
         UserModel userModel = userModelRepository.findByEmail(userDetails.getUsername()).orElse(null);
         userModel.setUsername(profileDetails.getUsername());
