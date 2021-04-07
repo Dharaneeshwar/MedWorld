@@ -96,6 +96,7 @@ public class OrderController {
         for(CartModel c: cartModels) {
         	OrderModel orderModel = new OrderModel();
         	orderModel.setPrice(String.valueOf(Integer.parseInt(c.getPrice())/c.getQuantity()));
+        	orderModel.setProductId(c.getProductId());
         	orderModel.setProductName(c.getProductName());
         	orderModel.setQuantity(c.getQuantity());
         	orderModel.setStatus("placed");
@@ -138,6 +139,7 @@ public class OrderController {
         
         ProductModel product = productRepository.getOne(Long.parseLong(data.get("prodId")));
         orderModel.setPrice(product.getPrice());
+        orderModel.setProductId(product.getProductId());
         orderModel.setProductName(product.getProductName());
     	orderModel.setQuantity(Integer.parseInt(data.get("totalPayAmt"))/Integer.parseInt(product.getPrice()));
     	orderModel.setStatus("placed");
@@ -166,7 +168,7 @@ public class OrderController {
         }
         else
         {
-            Long totalPrice = new Long(0);
+            long totalPrice =  0;
             for(CartModel c:cartRepository.findAllByUserId(userModel))
             {
                 totalPrice += Long.parseLong(c.getPrice());
@@ -174,7 +176,7 @@ public class OrderController {
             orderListModel.setTotalPrice(totalPrice);
         }
         orderListRepository.save(orderListModel);
-        HashMap<Long,OrderListModel> init = new HashMap();
+        HashMap<Long,OrderListModel> init = new HashMap<Long, OrderListModel>();
         init.put(orderListModel.getId(),orderListModel);
         return init;
     }

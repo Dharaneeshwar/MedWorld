@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         .antMatchers("/signup","/userStatus").permitAll()
         .antMatchers("/logout").hasAnyAuthority("admin","user")
         .antMatchers("/admin","/admin/**").hasAnyAuthority("admin")
-        .antMatchers("/home**","/cart","/saveOrder","/orders","/placeOrder").hasAnyAuthority("user")
+        .antMatchers("/home**","/cart","/saveOrder","/orders","/placeOrder","/getRecentBuys").hasAnyAuthority("user")
 //        .anyRequest().authenticated()
         .and()//.formLogin().disable().logout().disable()
         .sessionManagement()

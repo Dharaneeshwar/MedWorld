@@ -10,7 +10,7 @@ public class ProductModel{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
 
-    @Column(name = "imageUrl")
+    @Column(name = "imageUrl",columnDefinition = "text")
     private String imageUrl;
 
     @Column(name = "productName")
@@ -19,7 +19,7 @@ public class ProductModel{
     @Column(name = "price")
     private String price;
 
-    @Column(name = "description")
+    @Column(name = "description",columnDefinition = "text")
     private String description;
 
     @Column(name = "quantity")

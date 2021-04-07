@@ -28,6 +28,9 @@ public class OrderModel {
 
     @Column(name = "productName")
     private String productName;
+    
+    @Column(name = "productId")
+    private long productId;
 
     @Column(name = "totalPrice")
     private String totalPrice;
@@ -48,16 +51,48 @@ public class OrderModel {
     	
     }
 
-    public OrderModel(Long userId, String productName, String totalPrice, String status, int quantity, String price) {
-        this.userId = userId;
-        this.productName = productName;
-        this.totalPrice = totalPrice;
-        this.status = status;
-        this.quantity = quantity;
-        this.price = price;
-    }
 
-    public String getOrderId() {
+    public OrderModel(String orderId, Long userId, String productName, long productId, String totalPrice,
+			String status, int quantity, String price, UserModel userModel) {
+		super();
+		this.orderId = orderId;
+		this.userId = userId;
+		this.productName = productName;
+		this.productId = productId;
+		this.totalPrice = totalPrice;
+		this.status = status;
+		this.quantity = quantity;
+		this.price = price;
+		this.userModel = userModel;
+	}
+
+
+
+	public long getProductId() {
+		return productId;
+	}
+
+
+
+	public void setProductId(long productId) {
+		this.productId = productId;
+	}
+
+
+
+	public UserModel getUserModel() {
+		return userModel;
+	}
+
+
+
+	public void setUserModel(UserModel userModel) {
+		this.userModel = userModel;
+	}
+
+
+
+	public String getOrderId() {
         return orderId;
     }
 
