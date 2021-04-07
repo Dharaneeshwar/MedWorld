@@ -119,11 +119,11 @@ export class HomeComponent implements OnInit {
   choseSortCondition(sortCondition: string) {
     if (sortCondition == 'plh') {
       this.homeproducts = this.homeproducts.sort((i, j) => {
-        return i.price > j.price ? 1 : -1;
+        return parseInt(i.price) > parseInt(j.price) ? 1 : -1;
       });
     } else if (sortCondition == 'phl') {
       this.homeproducts = this.homeproducts.sort((i, j) => {
-        return i.price < j.price ? 1 : -1;
+        return parseInt(i.price) < parseInt(j.price) ? 1 : -1;
       });
     }
   }
