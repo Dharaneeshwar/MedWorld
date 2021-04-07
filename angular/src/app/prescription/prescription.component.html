@@ -52,6 +52,9 @@
       </div>
     </div>
     <div class="py-3 col-lg-7 order-lg-2 y-center">
+      <div *ngIf=retrievedImage>
+        <img [src]="retrievedImage">
+    </div>
       <img class="rounded d-block mx-auto mt-5" src="../../assets/imgUpload.svg" alt="" height="280vh" srcset="">
       <h5 class="text-center text-sm-left  mt-5" style="font-family: 'Patua One', cursive;">Upload Prescription</h5>
       <p *ngIf="filename !== 'null'" class="my-2">FileName: <span class="text-muted">({{filename}})</span></p>

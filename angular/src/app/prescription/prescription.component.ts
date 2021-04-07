@@ -128,14 +128,14 @@ export class PrescriptionComponent implements OnInit {
       })
   }
 
-  // getImage() {
-  //   //Make a call to Sprinf Boot to get the Image Bytes.
-  //   this.httpClient
-  //     .get('http://localhost:8080/prescription/get/' + this.filename)
-  //     .subscribe((res) => {
-  //       this.retrieveResonse = res;
-  //       this.base64Data = this.retrieveResonse.picByte;
-  //       this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-  //     });
-  // }
+  getImage() {
+    //Make a call to Sprinf Boot to get the Image Bytes.
+    this.httpClient
+      .get('http://localhost:8080/prescription/get/' + localStorage.getItem('current_order'))
+      .subscribe((res) => {
+        this.retrieveResonse = res;
+        this.base64Data = this.retrieveResonse.prescriptionImage;
+        this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
+      });
+  }
 }

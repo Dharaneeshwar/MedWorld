@@ -22,7 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.zip.DataFormatException;
 import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 @CrossOrigin(origins = "http://localhost:8081")
 //@CrossOrigin(origins = "https://8081-dbdedffdadadeeffdaabdfaccfeebafecbf.examlyiopb.examly.io")
@@ -191,7 +193,7 @@ public class OrderController {
         OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(file.getOriginalFilename().split("`")[0])).orElse(null);
         if(orderListModel!=null) {
             orderListModel.setPrescriptionImage(compressBytes(file.getBytes()));
-            orderListModel.setType(file.getContentType());
+            orderListModel.setImageType(file.getContentType());
             orderListRepository.save(orderListModel);
             System.out.println("uploaded");
         }
@@ -222,7 +224,34 @@ public class OrderController {
         System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
         return outputStream.toByteArray();
     }
-    
+    public static byte[] decompressBytes(byte[] data) {
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        try {
+            while (!inflater.finished()) {
+                int count = inflater.inflate(buffer);
+                outputStream.write(buffer, 0, count);
+            }
+            outputStream.close();
+        } catch (IOException ioe) {
+        } catch (DataFormatException e) {
+        }
+        return outputStream.toByteArray();
+    }
+
+    @GetMapping(path = { "/get/{orderId}" })
+    public OrderListModel getImage(@PathVariable("orderId") String orderId) throws IOException {
+        OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(orderId)).orElse(null);
+
+        System.out.println("get Img name"+" "+orderListModel.getPaymentId());
+        System.out.println("get Img type"+" "+orderListModel.getImageType());
+        System.out.println("get IMG"+" "+ decompressBytes(orderListModel.getPrescriptionImage()));
+        orderListModel.setPrescriptionImage(decompressBytes(orderListModel.getPrescriptionImage()));
+        return orderListModel;
+    }
+
     // Order-list - Admin
     @GetMapping("/admin/orderlist")
     public List<OrderListModel> getOrderList(){

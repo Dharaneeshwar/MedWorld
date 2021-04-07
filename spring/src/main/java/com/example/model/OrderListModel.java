@@ -17,11 +17,14 @@ public class OrderListModel {
 
     private String username;
 
-    private String mobileNumber;
-
     private String type;
 
-    @Column(name="prescriptionImage",length=10000)
+    private String imageType;
+
+    private String mobileNumber;
+
+
+    @Column(name="prescriptionImage",length=1000000)
     private byte[] prescriptionImage;
 
     private Long status;
@@ -31,12 +34,13 @@ public class OrderListModel {
     public OrderListModel() {
     }
 
-    public OrderListModel(String paymentId, Long userId, String username, String mobileNumber, String type, byte[] prescriptionImage, Long status, Long totalPrice) {
+    public OrderListModel(String paymentId, Long userId, String username, String mobileNumber, String type, String imageType, byte[] prescriptionImage, Long status, Long totalPrice) {
         this.paymentId = paymentId;
         this.userId = userId;
         this.username = username;
         this.mobileNumber = mobileNumber;
         this.type = type;
+        this.imageType = imageType;
         this.prescriptionImage = prescriptionImage;
         this.status = status;
         this.totalPrice = totalPrice;
@@ -84,6 +88,14 @@ public class OrderListModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String type) {
+        this.imageType = type;
     }
 
     public byte[] getPrescriptionImage() {
