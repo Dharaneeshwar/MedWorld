@@ -48,13 +48,18 @@
       </div>
     </div>
     <div class="py-3 col-lg-7 order-lg-2 y-center">
+      <div *ngIf=retrievedImage>
+        <img [src]="retrievedImage"><!--alt="prescription" height="280vh" srcset=""-->
+      </div>
       <img class="rounded d-block mx-auto mt-5" src="../../assets/imgUpload.svg" alt="" height="280vh" srcset="">
       <div class="mt-5">
         <h3 class="text-center mt-5" style="font-family: 'Patua One', cursive;">Accept or Decline the
           Order</h3>
         <div class="d-flex  justify-content-center mt-4">
-          <button *ngIf="orderData.status == 0 || orderData.status == 2" (click)="changeStatus(1)" class="btn btn-success d-block mr-2">Accept</button>
-          <button *ngIf="orderData.status == 0 || orderData.status == 1" (click)="changeStatus(2)" class="btn btn-danger d-block mr-2">Decline</button>
+          <button *ngIf="orderData.status == 0 || orderData.status == 2" (click)="changeStatus(1)"
+            class="btn btn-success d-block mr-2">Accept</button>
+          <button *ngIf="orderData.status == 0 || orderData.status == 1" (click)="changeStatus(2)"
+            class="btn btn-danger d-block mr-2">Decline</button>
           <button *ngIf="orderData.status != 0" (click)="changeStatus(0)" class="btn btn-warning d-block">Clear</button>
         </div>
       </div>
