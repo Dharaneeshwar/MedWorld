@@ -241,7 +241,7 @@ public class OrderController {
         return outputStream.toByteArray();
     }
 
-    @GetMapping(path = { "/get/{orderId}" })
+    @GetMapping(path = { "/prescription/{orderId}" })
     public OrderListModel getImage(@PathVariable("orderId") String orderId) throws IOException {
         OrderListModel orderListModel = orderListRepository.findById(Long.parseLong(orderId)).orElse(null);
 
